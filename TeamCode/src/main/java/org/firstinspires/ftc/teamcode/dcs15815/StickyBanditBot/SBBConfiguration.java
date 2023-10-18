@@ -41,7 +41,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
 
     public static String TILT_LEFT_MOTOR_NAME = "tilt_left_motor";
     public static String TILT_RIGHT_MOTOR_NAME = "tilt_right_motor";
-    public static DcMotorSimple.Direction TILT_LEFT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;;
+    public static DcMotorSimple.Direction TILT_LEFT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static DcMotorSimple.Direction TILT_RIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static double TILT_POWER_MAX = 1;
     public static int TILT_POSITION_MAX = 2200;

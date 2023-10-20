@@ -26,11 +26,11 @@ public class SBBClaw extends DefenderBotSystem {
 
 
     public void open() {
-	   setClawPosition(SBBConfiguration.CLAW_POSITION_OPEN);
+//	   setClawPosition(SBBConfiguration.CLAW_POSITION_OPEN);
     }
 
     public void close() {
-	   setClawPosition(SBBConfiguration.CLAW_POSITION_CLOSED);
+//	   setClawPosition(SBBConfiguration.CLAW_POSITION_CLOSED);
 
     }
 

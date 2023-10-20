@@ -11,6 +11,9 @@ public class DefenderDebouncer implements Runnable {
     private Runnable codeBlock;
     private boolean isFirstRun = true;
 
+
+
+
     public DefenderDebouncer(long t, Runnable block) {
 	   timeout = t;
 	   timer = new ElapsedTime();

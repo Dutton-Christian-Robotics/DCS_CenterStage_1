@@ -26,13 +26,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction LIFT_LEFT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;;
     public static DcMotorSimple.Direction LIFT_RIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static double LIFT_POWER_MAX = 1;
-    public static int LIFT_POSITION_MAX = 2200;
-    public static int LIFT_POSITION_HIGH = 2200;
-    public static int LIFT_POSITION_BELOW_HIGH = 1600;
-    public static int LIFT_POSITION_MIDDLE = 1500;
-    public static int LIFT_POSITION_LOW = 1100;
-    public static int LIFT_POSITION_STACKTOP = 680;
-    public static int LIFT_POSITION_STACK3 = 450;
+    public static int LIFT_POSITION_MAX = 2600;
     public static int LIFT_POSITION_GROUND = 0;
 
     public static double LIFT_MOTOR_KP = 0;
@@ -48,10 +42,17 @@ public class SBBConfiguration extends DefenderBotConfiguration {
 
     public static String WRIST_LEFT_SERVO_NAME = "wrist_left_servo";
     public static String WRIST_RIGHT_SERVO_NAME = "wrist_right_servo";
-    public static double WRIST_POSITION_MAX = 0;
+    public static double WRIST_LEFT_SERVO_POSITION_TOP = 0.15;
+    public static double WRIST_RIGHT_SERVO_POSITION_TOP = 0.85;
+    public static double WRIST_LEFT_SERVO_POSITION_STRAIGHT = 0.45;
+    public static double WRIST_RIGHT_SERVO_POSITION_STRAIGHT = 0.55;
+    public static double WRIST_LEFT_SERVO_POSITION_BOTTOM = 0.775;
+    public static double WRIST_RIGHT_SERVO_POSITION_BOTTOM = 0.225;
 
     public static String STICKYPAD_LEFT_SERVO_NAME = "stickypad_left_servo";
     public static String STICKYPAD_RIGHT_SERVO_NAME = "stickypad_right_servo";
+    public static double STICKYPAD_POSITION_GRAB = 1;
+    public static double STICKYPAD_POSITION_RELEASE = 0.3;
 
 
 
@@ -64,15 +65,6 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double GAMEPAD1_LEFT_STICK_X_CURVE = 2;
     public static double GAMEPAD1_LEFT_STICK_X_MAX = 1;
 
-
-    public static String CLAW_SERVO_NAME = "claw";
-    // We've changed these several times as we've swapped claws whose
-    // servo positions were reversed
-    //	   CLAW_POSITION_OPEN = 0.15; // original metal claw
-    //	   CLAW_POSITION_OPEN = 0; // original metal claw
-
-//    public static double CLAW_POSITION_OPEN = 0.55;
-//    public static double CLAW_POSITION_CLOSED = 0.15;
 
     public static String IMU_SENSOR_NAME = "imu";
     public static AxesOrder IMU_AXES_ORDER = AxesOrder.XYZ;

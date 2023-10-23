@@ -7,23 +7,23 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.Def
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotSystem;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderPIDController;
 
-public class SBBLift extends DefenderBotSystem {
+public class SBBTilt extends DefenderBotSystem {
 
     public DcMotorEx leftMotor, rightMotor;
     private DefenderPIDController pidController;
 
-    public SBBLift(HardwareMap hm, DefenderBot b) {
+    public SBBTilt(HardwareMap hm, DefenderBot b) {
 	   super(hm, b);
 	   pidController = new DefenderPIDController(
-			 SBBConfiguration.LIFT_MOTOR_KP,
-			 SBBConfiguration.LIFT_MOTOR_KI,
-			 SBBConfiguration.LIFT_MOTOR_KD
+			 SBBConfiguration.TILT_MOTOR_KP,
+			 SBBConfiguration.TILT_MOTOR_KI,
+			 SBBConfiguration.TILT_MOTOR_KD
 	   );
 
-	   leftMotor = hm.get(DcMotorEx.class, SBBConfiguration.LIFT_LEFT_MOTOR_NAME);
-	   rightMotor = hm.get(DcMotorEx.class, SBBConfiguration.LIFT_RIGHT_MOTOR_NAME);
-	   leftMotor.setDirection(SBBConfiguration.LIFT_LEFT_MOTOR_DIRECTION);
-	   rightMotor.setDirection(SBBConfiguration.LIFT_RIGHT_MOTOR_DIRECTION);
+	   leftMotor = hm.get(DcMotorEx.class, SBBConfiguration.TILT_LEFT_MOTOR_NAME);
+	   rightMotor = hm.get(DcMotorEx.class, SBBConfiguration.TILT_RIGHT_MOTOR_NAME);
+	   leftMotor.setDirection(SBBConfiguration.TILT_LEFT_MOTOR_DIRECTION);
+	   rightMotor.setDirection(SBBConfiguration.TILT_RIGHT_MOTOR_DIRECTION);
 
 	   leftMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 	   rightMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
@@ -36,15 +36,16 @@ public class SBBLift extends DefenderBotSystem {
     }
 
     public void setPosition(int p) {
-	   if ((p <= SBBConfiguration.LIFT_POSITION_MAX) && (p >= SBBConfiguration.LIFT_POSITION_GROUND)) {
+	   if ((p <= SBBConfiguration.TILT_POSITION_MAX) && (p >= SBBConfiguration.TILT_POSITION_MIN)) {
+
 		  leftMotor.setPower(0);
 		  rightMotor.setPower(0);
 		  leftMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 		  rightMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 		  leftMotor.setTargetPosition(p);
 		  rightMotor.setTargetPosition(p);
-		  leftMotor.setPower(SBBConfiguration.LIFT_POWER_MAX);
-		  rightMotor.setPower(SBBConfiguration.LIFT_POWER_MAX);
+		  leftMotor.setPower(SBBConfiguration.TILT_POWER_MAX);
+		  rightMotor.setPower(SBBConfiguration.TILT_POWER_MAX);
 	   }
     }
 

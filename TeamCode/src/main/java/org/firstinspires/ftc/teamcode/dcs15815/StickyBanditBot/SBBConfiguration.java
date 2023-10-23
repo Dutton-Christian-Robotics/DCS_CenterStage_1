@@ -17,7 +17,6 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction DRIVETRAIN_FRONTRIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static DcMotorSimple.Direction DRIVETRAIN_BACKRIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.FORWARD;
 
-
     public static double DRIVETRAIN_POWER_MAX = 1.0;
     public static int DRIVETRAIN_MAX_TICKS_PER_SECOND = 2800;
 
@@ -39,6 +38,12 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction TILT_RIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static double TILT_POWER_MAX = 1;
     public static int TILT_POSITION_MAX = 2200;
+    public static int TILT_POSITION_MIN = 0;
+
+    public static double TILT_MOTOR_KP = 0;
+    public static double TILT_MOTOR_KI = 0;
+    public static double TILT_MOTOR_KD = 0;
+
 
     public static String WRIST_LEFT_SERVO_NAME = "wrist_left_servo";
     public static String WRIST_RIGHT_SERVO_NAME = "wrist_right_servo";

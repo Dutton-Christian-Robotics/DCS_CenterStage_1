@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.Def
 
 public class StickyBanditAutonomousBot extends DefenderBot {
 
-    public SBBClaw claw;
+    public SBBStickyPad claw;
     public SBBVision vision;
     public SBBSensors sensors;
     public SBBNavigation navigation;
@@ -20,7 +20,7 @@ public class StickyBanditAutonomousBot extends DefenderBot {
 
 	   drivetrain = addSystem(SBBMecanumDrivetrain.class);
 	   lift = addSystem(SBBLift.class);
-	   claw = addSystem(SBBClaw.class);
+	   claw = addSystem(SBBStickyPad.class);
 	   sensors = addSystem(SBBSensors.class);
 	   navigation = addSystem(SBBNavigation.class);
 	   vision = addSystem(SBBVision.class); // is something happening here in vision that is causing invisible crashes?

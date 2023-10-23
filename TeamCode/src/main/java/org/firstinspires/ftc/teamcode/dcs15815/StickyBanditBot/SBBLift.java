@@ -36,20 +36,27 @@ public class SBBLift extends DefenderBotSystem {
     }
 
     public void setPosition(int p) {
-	   if ((p <= SBBConfiguration.LIFT_POSITION_MAX) && (p >= SBBConfiguration.LIFT_POSITION_GROUND)) {
-		  leftMotor.setPower(0);
-		  rightMotor.setPower(0);
-		  leftMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-		  rightMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-		  leftMotor.setTargetPosition(p);
-		  rightMotor.setTargetPosition(p);
-		  leftMotor.setPower(SBBConfiguration.LIFT_POWER_MAX);
-		  rightMotor.setPower(SBBConfiguration.LIFT_POWER_MAX);
+	   if (p > SBBConfiguration.LIFT_POSITION_MAX) {
+		  p = SBBConfiguration.LIFT_POSITION_MAX;
+	   } else if (p < SBBConfiguration.LIFT_POSITION_GROUND) {
+		  p = SBBConfiguration.LIFT_POSITION_GROUND;
 	   }
+	   leftMotor.setPower(0);
+	   rightMotor.setPower(0);
+	   leftMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+	   rightMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+	   leftMotor.setTargetPosition(p);
+	   rightMotor.setTargetPosition(p);
+	   leftMotor.setPower(SBBConfiguration.LIFT_POWER_MAX);
+	   rightMotor.setPower(SBBConfiguration.LIFT_POWER_MAX);
     }
 
     public int getPosition() {
 	   return leftMotor.getCurrentPosition();
+    }
+
+    public void setRelativePosition(int p) {
+	   setPosition(getPosition() + p);
     }
 
 //    public void gotoPosition(int p) {

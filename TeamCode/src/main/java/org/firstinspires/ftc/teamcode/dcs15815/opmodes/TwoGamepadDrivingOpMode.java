@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.dcs15815.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.sun.tools.javac.util.ArrayUtils;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAnalogModifier;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
@@ -13,7 +12,9 @@ import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.StickyBanditBot;
 public class TwoGamepadDrivingOpMode extends LinearOpMode
 {
     StickyBanditBot bot;
-    private DefenderDebouncer liftUpDebouncer, liftDownDebouncer, liftGroundDebouncer, stickyPadDebouncer;
+    private DefenderDebouncer gamepad2DpadUpDebouncer, gamepad2DpadDownDebouncer, gamepad2DpadLeftDebouncer, gamepad2DpadRightDebouncer;
+    private DefenderDebouncer gamepad2ADebouncer, gamepad2BDebouncer, gamepad2XDebouncer, gamepad2YDebouncer;
+    private DefenderDebouncer gamepad2LeftBumperDebouncer, gamepad2RightBumperDebouncer;
     private DefenderAnalogModifier gamepad2RightStickModifier, gamepad1LeftStickYModifier, gamepad1LeftStickXModifier;
 
     @Override
@@ -34,60 +35,99 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 			 SBBConfiguration.GAMEPAD2_RIGHT_STICK_MAX
 	   );
 
-	   liftUpDebouncer = new DefenderDebouncer(500, () -> {
-//		  gotoNextPosition();
-//		  if (currentLiftPositionIndex < (liftPositions.length - 1)) {
-//			 currentLiftPositionIndex++;
-//		  }
-//		  bot.lift.setPosition(liftPositions[currentLiftPositionIndex]);
+	   gamepad2DpadUpDebouncer = new DefenderDebouncer(500, () -> {
+		  bot.lift.setRelativePosition(SBBConfiguration.LIFT_POSITION_DELTA);
 	   });
-	   liftDownDebouncer = new DefenderDebouncer(500, () -> {
-//		  gotoPreviousPosition();
-//		  if (currentLiftPositionIndex > 0) {
-//			 currentLiftPositionIndex--;
-//		  }
-//		  bot.lift.setPosition(liftPositions[currentLiftPositionIndex]);
+	   gamepad2DpadDownDebouncer = new DefenderDebouncer(500, () -> {
+		  bot.lift.setRelativePosition(-1 * SBBConfiguration.LIFT_POSITION_DELTA);
 	   });
-	   liftGroundDebouncer = new DefenderDebouncer(500, () -> {
-//		  bot.lift.setPosition(0);
-//		  currentLiftPositionIndex = 0;
+	   gamepad2DpadLeftDebouncer = new DefenderDebouncer(500, () -> {
+		  bot.tilt.setRelativePosition(-1 * SBBConfiguration.TILT_POSITION_DELTA);
 	   });
-	   clawDebouncer = new DefenderDebouncer(500, () -> {
-//		  if (isClawOpen) {
-//			 bot.claw.close();
-//		  } else {
-//			 bot.claw.open();
-//		  }
-//		  isClawOpen = !isClawOpen;
+	   gamepad2DpadRightDebouncer = new DefenderDebouncer(500, () -> {
+		  bot.tilt.setRelativePosition(SBBConfiguration.TILT_POSITION_DELTA);
+	   });
+	   gamepad2ADebouncer = new DefenderDebouncer(500, () -> {
+		  bot.wrist.setRelativePosition(-1 * SBBConfiguration.WRIST_POSITION_DELTA);
+
+	   });
+	   gamepad2BDebouncer = new DefenderDebouncer(500, () -> {
+	   });
+	   gamepad2XDebouncer = new DefenderDebouncer(500, () -> {
+	   });
+	   gamepad2YDebouncer = new DefenderDebouncer(500, () -> {
+		  bot.wrist.setRelativePosition(SBBConfiguration.WRIST_POSITION_DELTA);
+	   });
+	   gamepad2LeftBumperDebouncer = new DefenderDebouncer(500, () -> {
+		  bot.stickyPad.releaseLeft();
+	   });
+	   gamepad2RightBumperDebouncer = new DefenderDebouncer(500, () -> {
+		  bot.stickyPad.releaseRight();
 	   });
 
 	   waitForStart();
 	   bot.stickyPad.gotoGrabPosition();
+	   bot.wrist.setPosition(SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
 
 	   while (opModeIsActive()) {
-//		  telemetry.addData("lift-left", bot.lift.leftMotor.getCurrentPosition());
-//		  telemetry.addData("lift-right", bot.lift.rightMotor.getCurrentPosition());
-		  bot.drivetrain.drive(gamepad1LeftStickYModifier.modify(-1 * gamepad1.left_stick_y), (gamepad1.right_trigger - gamepad1.left_trigger), gamepad1LeftStickXModifier.modify(gamepad1.left_stick_x));
+		  bot.drivetrain.drive(
+				gamepad1LeftStickYModifier.modify(-1 * gamepad1.left_stick_y),
+				(gamepad1.right_trigger - gamepad1.left_trigger),
+				gamepad1LeftStickXModifier.modify(gamepad1.left_stick_x));
 
-		  if (gamepad2.right_stick_y > 0) {
-			 bot.lift.setPower(gamepad2RightStickModifier.modify(-1 * gamepad2.right_stick_y));
-		  } else if (gamepad2.right_stick_y < 0) {
-			 bot.lift.setPower(gamepad2RightStickModifier.modify(-1 * gamepad2.right_stick_y));
-		  } else if (gamepad2.dpad_up) {
-			 liftUpDebouncer.run();
+		  if (gamepad2.dpad_left) {
+			 gamepad2DpadLeftDebouncer.run();
+		  } else if (gamepad2.dpad_right) {
+			 gamepad2DpadRightDebouncer.run();
+		  }
+
+		  if (gamepad2.dpad_up) {
+			 gamepad2DpadUpDebouncer.run();
 		  } else if (gamepad2.dpad_down) {
-			 liftDownDebouncer.run();
-		  } else if (gamepad2.x) {
-			 liftGroundDebouncer.run();
+			 gamepad2DpadDownDebouncer.run();
+		  }
+		  if (gamepad2.a) {
+			 gamepad2ADebouncer.run();
 		  }
 		  if (gamepad2.b) {
-			 bot.lift.stop();
+			 gamepad2BDebouncer.run();
+		  }
+		  if (gamepad2.x) {
+			 gamepad2XDebouncer.run();
+		  }
+		  if (gamepad2.y) {
+			 gamepad2YDebouncer.run();
+		  }
+		  if (gamepad2.left_bumper) {
+			 gamepad2LeftBumperDebouncer.run();
 		  }
 		  if (gamepad2.right_bumper) {
-			 clawDebouncer.run();
+			 gamepad2RightBumperDebouncer.run();
 		  }
-//		  telemetry.addData("lift-target", liftPositions[currentLiftPositionIndex]);
+
+//		  if (gamepad2.right_stick_y > 0) {
+//			 bot.lift.setPower(gamepad2RightStickModifier.modify(-1 * gamepad2.right_stick_y));
+//		  } else if (gamepad2.right_stick_y < 0) {
+//			 bot.lift.setPower(gamepad2RightStickModifier.modify(-1 * gamepad2.right_stick_y));
+//		  } else if (gamepad2.dpad_up) {
+//			 liftUpDebouncer.run();
+//		  } else if (gamepad2.dpad_down) {
+//			 liftDownDebouncer.run();
+//		  } else if (gamepad2.x) {
+//			 liftGroundDebouncer.run();
+//		  }
+//		  if (gamepad2.b) {
+//			 bot.lift.stop();
+//		  }
+//		  if (gamepad2.right_bumper) {
+//			 clawDebouncer.run();
+//		  }
+
+		  telemetry.addData("lift", bot.lift.getPosition());
+		  telemetry.addData("tilt", bot.tilt.getPosition());
+		  telemetry.addData("wrist", bot.wrist.getPosition());
+		  telemetry.addData("stickypad", bot.stickyPad.getPosition());
 		  telemetry.update();
 
 	   }

@@ -47,6 +47,8 @@ public class StickyPadTestOpMode extends LinearOpMode
 	   });
 
 
+	   leftStickyPadServo.setPosition(1);
+	   rightStickyPadServo.setPosition(1);
 
 
 	   waitForStart();

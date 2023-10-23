@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.Def
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class SBBWrist extends DefenderBotSystem {
 
@@ -28,20 +27,32 @@ public class SBBWrist extends DefenderBotSystem {
 // ----------------------------------------
 
     public void setPosition(double l, double r) {
-	   if ((r <= SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TOP) && (r >= SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM)) {
-		  position = r;
-		  leftServo.setPosition(l);
-		  rightServo.setPosition(r);
+	   if (r > SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TOP) {
+		  r = SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TOP;
+	   } else if (r < SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM) {
+		  r = SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM;
 	   }
+	   position = r;
+	   leftServo.setPosition(l);
+	   rightServo.setPosition(r);
     }
 
     public void setPosition(double p) {
-	   if ((p <= SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TOP) && (p >= SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM)) {
-		  setPosition(1 - p, p);
+	   if (p > SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TOP) {
+		  p = SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TOP;
+	   } else if (p < SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM) {
+		  p = SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM;
 	   }
+	   setPosition(1 - p, p);
     }
 
+    public void setRelativePosition(double p) {
+	   setPosition(getPosition() + p);
+    }
+
+
 // ----------------------------------------
+
 
 
     public void gotoTopPosition() {

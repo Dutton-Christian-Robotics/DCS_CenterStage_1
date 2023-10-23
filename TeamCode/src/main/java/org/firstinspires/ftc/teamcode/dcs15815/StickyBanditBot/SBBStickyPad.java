@@ -48,7 +48,7 @@ public class SBBStickyPad extends DefenderBotSystem {
 	   leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE);
 	   es.submit(() -> {
 		  try {
-			 TimeUnit.MILLISECONDS.sleep(750);
+			 TimeUnit.MILLISECONDS.sleep(1000);
 			 leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB);
 		  } catch (InterruptedException e) {
 			 e.printStackTrace();
@@ -61,7 +61,7 @@ public class SBBStickyPad extends DefenderBotSystem {
 	   rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE);
 	   es.submit(() -> {
 		  try {
-			 TimeUnit.MILLISECONDS.sleep(750);
+			 TimeUnit.MILLISECONDS.sleep(1000);
 			 rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB);
 		  } catch (InterruptedException e) {
 			 e.printStackTrace();

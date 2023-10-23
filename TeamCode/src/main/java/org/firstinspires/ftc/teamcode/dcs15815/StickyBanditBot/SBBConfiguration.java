@@ -15,18 +15,19 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction DRIVETRAIN_BACKLEFT_MOTOR_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static DcMotorSimple.Direction DRIVETRAIN_FRONTLEFT_MOTOR_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static DcMotorSimple.Direction DRIVETRAIN_FRONTRIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;
-    public static DcMotorSimple.Direction DRIVETRAIN_BACKRIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.FORWARD;
+    public static DcMotorSimple.Direction DRIVETRAIN_BACKRIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;
 
     public static double DRIVETRAIN_POWER_MAX = 1.0;
     public static int DRIVETRAIN_MAX_TICKS_PER_SECOND = 2800;
 
     public static String LIFT_LEFT_MOTOR_NAME = "lift_left_motor";
     public static String LIFT_RIGHT_MOTOR_NAME = "lift_right_motor";
-    public static DcMotorSimple.Direction LIFT_LEFT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;;
+    public static DcMotorSimple.Direction LIFT_LEFT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static DcMotorSimple.Direction LIFT_RIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static double LIFT_POWER_MAX = 1;
     public static int LIFT_POSITION_MAX = 2600;
     public static int LIFT_POSITION_GROUND = 0;
+    public static int LIFT_POSITION_DELTA = 250;
 
     public static double LIFT_MOTOR_KP = 0;
     public static double LIFT_MOTOR_KI = 0;
@@ -37,8 +38,10 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction TILT_LEFT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static DcMotorSimple.Direction TILT_RIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.FORWARD;
     public static double TILT_POWER_MAX = 1;
-    public static int TILT_POSITION_MAX = 2200;
+    public static int TILT_POSITION_MAX = 3080;
+    public static int TILT_POSITION_UP = 2200;
     public static int TILT_POSITION_MIN = 0;
+    public static int TILT_POSITION_DELTA = 250;
 
     public static double TILT_MOTOR_KP = 0;
     public static double TILT_MOTOR_KI = 0;
@@ -53,6 +56,8 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double WRIST_RIGHT_SERVO_POSITION_STRAIGHT = 0.55;
     public static double WRIST_LEFT_SERVO_POSITION_BOTTOM = 0.775;
     public static double WRIST_RIGHT_SERVO_POSITION_BOTTOM = 0.225;
+    public static double WRIST_POSITION_DELTA = 0.1;
+
 
     public static String STICKYPAD_LEFT_SERVO_NAME = "stickypad_left_servo";
     public static String STICKYPAD_RIGHT_SERVO_NAME = "stickypad_right_servo";

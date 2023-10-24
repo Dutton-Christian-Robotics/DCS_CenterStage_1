@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAnalogModifier;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
-import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBArmPosition;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.StickyBanditBot;
 
@@ -18,65 +17,9 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
     private DefenderDebouncer gamepad2LeftBumperDebouncer, gamepad2RightBumperDebouncer;
     private DefenderAnalogModifier gamepad2RightStickModifier, gamepad1LeftStickYModifier, gamepad1LeftStickXModifier;
 
-    SBBArmPosition[] armPositions;
-    int currentArmPosition = 0;
-
-//    public SBBArmPosition[] reverse(int[] array) {
-//	   SBBArmPosition[] newArray = new SBBArmPosition[array.length];
-//
-//	   for (int i = 0; i < array.length; i++) {
-//		  newArray[array.length - 1 - i] = array[i];
-//	   }
-//
-//	   return newArray;
-//    }
-    public void gotoNextPosition() {
-	   currentArmPosition += 1;
-	   if (currentArmPosition >= armPositions.length) {
-		  currentArmPosition = armPositions.length - 1;
-	   }
-	   bot.gotoArmPosition(armPositions[currentArmPosition]);
-    }
-
-    public void gotoPreviousPosition() {
-	   currentArmPosition -= 1;
-	   if (currentArmPosition < 0) {
-		  currentArmPosition = 0;
-	   }
-	   bot.gotoArmPosition(armPositions[currentArmPosition]);
-    }
-    @Override
+     @Override
     public void runOpMode() {
 	   bot = new StickyBanditBot(hardwareMap, SBBConfiguration.class, telemetry);
-
-	   SBBArmPosition startPosition = new SBBArmPosition(SBBConfiguration.LIFT_POSITION_GROUND,
-			 SBBConfiguration.TILT_POSITION_GROUND,
-			 SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
-
-	   SBBArmPosition grabPosition = new SBBArmPosition(SBBConfiguration.LIFT_POSITION_GROUND,
-			 SBBConfiguration.TILT_POSITION_MIN,
-			 SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
-
-	   SBBArmPosition travelPosition = new SBBArmPosition(SBBConfiguration.LIFT_POSITION_GROUND,
-			 SBBConfiguration.TILT_POSITION_TRAVEL,
-			 SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TRAVEL);
-
-	   SBBArmPosition lowFrontDeliveryPosition = new SBBArmPosition(0, 635, 0.425);
-
-	   SBBArmPosition midFrontDeliveryPosition = new SBBArmPosition(500, 1000, 0.425);
-
-
-	   SBBArmPosition highBackDeliveryPosition = new SBBArmPosition(0, 2851, .85);
-
-	   SBBArmPosition hangPosition = new SBBArmPosition(2601, 1523, .225);
-
-
-	   armPositions = new SBBArmPosition[]{
-			 startPosition,
-			 lowFrontDeliveryPosition,
-			 midFrontDeliveryPosition,
-			 highBackDeliveryPosition
-	   };
 
 	   gamepad1LeftStickYModifier = new DefenderAnalogModifier(
 			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_CURVE,
@@ -93,18 +36,18 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 //	   );
 
 	   gamepad2DpadUpDebouncer = new DefenderDebouncer(500, () -> {
-		  gotoNextPosition();
+		  bot.gotoNextArmPosition();
 //		  bot.lift.setRelativePosition(SBBConfiguration.LIFT_POSITION_DELTA);
 	   });
 	   gamepad2DpadDownDebouncer = new DefenderDebouncer(500, () -> {
-		  gotoPreviousPosition();
+		  bot.gotoPreviousArmPosition();
 //		  bot.lift.setRelativePosition(-1 * SBBConfiguration.LIFT_POSITION_DELTA);
 	   });
 	   gamepad2DpadLeftDebouncer = new DefenderDebouncer(500, () -> {
 //		  bot.tilt.setRelativePosition(-1 * SBBConfiguration.TILT_POSITION_DELTA);
 	   });
 	   gamepad2DpadRightDebouncer = new DefenderDebouncer(500, () -> {
-		  bot.gotoArmPosition(hangPosition);
+		  bot.gotoHangArmPosition();
 
 //		  bot.tilt.setRelativePosition(SBBConfiguration.TILT_POSITION_DELTA);
 	   });
@@ -113,14 +56,14 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 
 	   });
 	   gamepad2BDebouncer = new DefenderDebouncer(500, () -> {
-		  bot.gotoArmPosition(grabPosition);
+		  bot.gotoGrabArmPosition();
 //		  bot.lift.setPosition(0);
 //		  bot.tilt.setPosition(2851);
 //		  bot.wrist.setPosition(0.85);
 
 	   });
 	   gamepad2XDebouncer = new DefenderDebouncer(500, () -> {
-		  bot.gotoArmPosition(travelPosition);
+		  bot.gotoTravelArmPosition();
 	   });
 	   gamepad2YDebouncer = new DefenderDebouncer(500, () -> {
 		  bot.wrist.setRelativePosition(SBBConfiguration.WRIST_POSITION_DELTA);
@@ -210,6 +153,6 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 		  telemetry.update();
 
 	   }
-	   bot.gotoArmPosition(startPosition);
+	   bot.gotoStartArmPosition();
     }
 }

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotConfiguration;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderPresets;
 
 public class SBBConfiguration extends DefenderBotConfiguration {
 
@@ -120,6 +121,51 @@ public class SBBConfiguration extends DefenderBotConfiguration {
 
     public static String CAMERA_NAME = "Webcam 1";
     public static double VISION_THRESHOLD_DETECTION = 18;
+
+    /* PRESETS -------------------------------------------------------- */
+
+    public static SBBArmPosition START_POSITION = new SBBArmPosition(
+            SBBConfiguration.LIFT_POSITION_GROUND,
+            SBBConfiguration.TILT_POSITION_GROUND,
+            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
+
+    public static SBBArmPosition GRAB_POSITION = new SBBArmPosition(
+            SBBConfiguration.LIFT_POSITION_GROUND,
+            SBBConfiguration.TILT_POSITION_MIN,
+            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
+
+    public static SBBArmPosition TRAVEL_POSITION = new SBBArmPosition(
+            SBBConfiguration.LIFT_POSITION_GROUND,
+            SBBConfiguration.TILT_POSITION_TRAVEL,
+            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TRAVEL);
+
+    public static SBBArmPosition LOW_FRONT_DELIVERY_POSITION = new SBBArmPosition(
+            0,
+            635,
+            0.425);
+
+    public static SBBArmPosition MID_FRONT_DELIVERY_POSITION = new SBBArmPosition(
+            500,
+            1000,
+            0.425);
+
+    public static SBBArmPosition HIGH_BACK_DELIVERY_POSITION = new SBBArmPosition(
+            0,
+            2851,
+            0.85);
+    public static SBBArmPosition HANG_POSITION = new SBBArmPosition(
+            2601,
+            1523,
+            .225);
+
+    public static DefenderPresets<SBBArmPosition> ARM_PRESETS = new DefenderPresets<>(
+            SBBConfiguration.START_POSITION,
+            SBBConfiguration.LOW_FRONT_DELIVERY_POSITION,
+            SBBConfiguration.MID_FRONT_DELIVERY_POSITION,
+            SBBConfiguration.HIGH_BACK_DELIVERY_POSITION
+    );
+
+    /* METHODS -------------------------------------------------------- */
 
     public SBBConfiguration() {
 	   super();

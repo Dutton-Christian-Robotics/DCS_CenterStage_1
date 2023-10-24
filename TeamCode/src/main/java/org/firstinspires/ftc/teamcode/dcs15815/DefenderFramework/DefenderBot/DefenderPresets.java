@@ -13,12 +13,12 @@ public class DefenderPresets<T> {
     private int currentPosition;
     private boolean loops = false;
 
-    DefenderPresets() {
+    public DefenderPresets() {
 	   presets = new ArrayList<>();
 	   currentPosition = 0;
     }
 
-    DefenderPresets(T... values) {
+    public DefenderPresets(T... values) {
 	   presets = new ArrayList<>(Arrays.asList(values));
 	   currentPosition = 0;
     }

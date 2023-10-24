@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderPresets;
 
 public class StickyBanditBot extends DefenderBot {
 
@@ -16,6 +17,8 @@ public class StickyBanditBot extends DefenderBot {
     public SBBWrist wrist;
     public SBBStickyPad stickyPad;
 
+    public DefenderPresets<SBBArmPosition> armPresets;
+
 
     public StickyBanditBot(HardwareMap hm, Class configClass, Telemetry t) {
 	   super(hm, configClass, t);
@@ -25,6 +28,8 @@ public class StickyBanditBot extends DefenderBot {
 	   tilt = addSystem(SBBTilt.class);
 	   wrist = addSystem(SBBWrist.class);
 	   stickyPad = addSystem(SBBStickyPad.class);
+
+	   armPresets = SBBConfiguration.ARM_PRESETS;
 
 
 	   //	   sensors = addSystem(SBBSensors.class);
@@ -42,4 +47,31 @@ public class StickyBanditBot extends DefenderBot {
 	   tilt.setPosition(p.tiltPosition);
 	   wrist.setPosition(p.wristPosition);
     }
+
+    public void gotoNextArmPosition() {
+	   armPresets.selectNext();
+	   gotoArmPosition(armPresets.selected());
+    }
+
+    public void gotoPreviousArmPosition() {
+	   armPresets.selectPrevious();
+	   gotoArmPosition(armPresets.selected());
+    }
+
+    public void gotoGrabArmPosition() {
+	   gotoArmPosition(SBBConfiguration.GRAB_POSITION);
+    }
+
+    public void gotoHangArmPosition() {
+	   gotoArmPosition(SBBConfiguration.HANG_POSITION);
+    }
+
+    public void gotoTravelArmPosition() {
+	   gotoArmPosition(SBBConfiguration.TRAVEL_POSITION);
+    }
+
+    public void gotoStartArmPosition() {
+	   gotoArmPosition(SBBConfiguration.START_POSITION);
+    }
+
 }

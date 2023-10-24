@@ -36,4 +36,10 @@ public class StickyBanditBot extends DefenderBot {
 
 
     }
+
+    public void gotoArmPosition(SBBArmPosition p) {
+	   lift.setPosition(p.liftPosition);
+	   tilt.setPosition(p.tiltPosition);
+	   wrist.setPosition(p.wristPosition);
+    }
 }

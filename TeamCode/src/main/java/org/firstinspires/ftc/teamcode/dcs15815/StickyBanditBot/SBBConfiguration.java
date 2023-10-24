@@ -8,6 +8,8 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.Def
 
 public class SBBConfiguration extends DefenderBotConfiguration {
 
+    /* DRIVETRAIN -------------------------------------------------- */
+
     public static String DRIVETRAIN_BACKLEFT_MOTOR_NAME = "back_left_motor";
     public static String DRIVETRAIN_FRONTLEFT_MOTOR_NAME = "front_left_motor";
     public static String DRIVETRAIN_FRONTRIGHT_MOTOR_NAME = "front_right_motor";
@@ -19,6 +21,8 @@ public class SBBConfiguration extends DefenderBotConfiguration {
 
     public static double DRIVETRAIN_POWER_MAX = 1.0;
     public static int DRIVETRAIN_MAX_TICKS_PER_SECOND = 2800;
+
+    /* LIFT -------------------------------------------------------- */
 
     public static String LIFT_LEFT_MOTOR_NAME = "lift_left_motor";
     public static String LIFT_RIGHT_MOTOR_NAME = "lift_right_motor";
@@ -33,6 +37,8 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double LIFT_MOTOR_KI = 0;
     public static double LIFT_MOTOR_KD = 0;
 
+    /* TILT -------------------------------------------------------- */
+
     public static String TILT_LEFT_MOTOR_NAME = "tilt_left_motor";
     public static String TILT_RIGHT_MOTOR_NAME = "tilt_right_motor";
     public static DcMotorSimple.Direction TILT_LEFT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;
@@ -40,12 +46,16 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double TILT_POWER_MAX = 1;
     public static int TILT_POSITION_MAX = 3080;
     public static int TILT_POSITION_UP = 2200;
-    public static int TILT_POSITION_MIN = 0;
+    public static int TILT_POSITION_TRAVEL = 200;
+    public static int TILT_POSITION_GROUND = 0;
+    public static int TILT_POSITION_MIN = -100;
     public static int TILT_POSITION_DELTA = 250;
 
     public static double TILT_MOTOR_KP = 0;
     public static double TILT_MOTOR_KI = 0;
     public static double TILT_MOTOR_KD = 0;
+
+    /* WRIST -------------------------------------------------------- */
 
 
     public static String WRIST_LEFT_SERVO_NAME = "wrist_left_servo";
@@ -56,7 +66,10 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double WRIST_RIGHT_SERVO_POSITION_STRAIGHT = 0.55;
     public static double WRIST_LEFT_SERVO_POSITION_BOTTOM = 0.775;
     public static double WRIST_RIGHT_SERVO_POSITION_BOTTOM = 0.225;
+    public static double WRIST_RIGHT_SERVO_POSITION_TRAVEL = 0.225;
     public static double WRIST_POSITION_DELTA = 0.1;
+
+    /* STICKYPAD -------------------------------------------------------- */
 
 
     public static String STICKYPAD_LEFT_SERVO_NAME = "stickypad_left_servo";
@@ -64,7 +77,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double STICKYPAD_POSITION_GRAB = 1;
     public static double STICKYPAD_POSITION_RELEASE = 0.3;
 
-
+    /* GAMEPADS -------------------------------------------------------- */
 
     public static double GAMEPAD2_RIGHT_STICK_CURVE = 2;
     public static double GAMEPAD2_RIGHT_STICK_MAX = 1;
@@ -75,6 +88,8 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double GAMEPAD1_LEFT_STICK_X_CURVE = 2;
     public static double GAMEPAD1_LEFT_STICK_X_MAX = 1;
 
+
+    /* NAVIGATON -------------------------------------------------------- */
 
     public static String IMU_SENSOR_NAME = "imu";
     public static AxesOrder IMU_AXES_ORDER = AxesOrder.XYZ;
@@ -99,6 +114,8 @@ public class SBBConfiguration extends DefenderBotConfiguration {
 //    public static Pose2d NAVIGATION_START_RED_RIGHT = new Pose2d(-65, -36, 0);
 //    public static Pose2d NAVIGATION_START_BLUE_LEFT = new Pose2d(65, -36, 0);
 //    public static Pose2d NAVIGATION_START_BLUE_RIGHT = new Pose2d(65, 36, 0);
+
+    /* VISION -------------------------------------------------------- */
 
 
     public static String CAMERA_NAME = "Webcam 1";

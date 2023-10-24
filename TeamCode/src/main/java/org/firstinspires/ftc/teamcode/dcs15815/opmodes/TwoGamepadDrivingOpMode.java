@@ -21,14 +21,14 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
     public void runOpMode() {
 	   bot = new StickyBanditBot(hardwareMap, SBBConfiguration.class, telemetry);
 
-	   gamepad1LeftStickYModifier = new DefenderAnalogModifier(
-			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_CURVE,
-			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_MAX
-	   );
-	   gamepad1LeftStickXModifier = new DefenderAnalogModifier(
-			 SBBConfiguration.GAMEPAD1_LEFT_STICK_X_CURVE,
-			 SBBConfiguration.GAMEPAD1_LEFT_STICK_X_MAX
-	   );
+//	   gamepad1LeftStickYModifier = new DefenderAnalogModifier(
+//			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_CURVE,
+//			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_MAX
+//	   );
+//	   gamepad1LeftStickXModifier = new DefenderAnalogModifier(
+//			 SBBConfiguration.GAMEPAD1_LEFT_STICK_X_CURVE,
+//			 SBBConfiguration.GAMEPAD1_LEFT_STICK_X_MAX
+//	   );
 
 //	   gamepad2RightStickModifier = new DefenderAnalogModifier(
 //			 SBBConfiguration.GAMEPAD2_RIGHT_STICK_CURVE,
@@ -75,22 +75,16 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 		  bot.stickyPad.releaseRight();
 	   });
 
+	    bot.stickyPad.gotoGrabPosition();
+	    bot.wrist.setPosition(SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 	   waitForStart();
-	   bot.stickyPad.gotoGrabPosition();
-	   bot.wrist.setPosition(SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
 
 	   while (opModeIsActive()) {
 		  bot.drivetrain.drive(
-				gamepad1LeftStickYModifier.modify(-1 * gamepad1.left_stick_y),
+				-1 * gamepad1.left_stick_y,
 				(gamepad1.right_trigger - gamepad1.left_trigger),
 				gamepad1.right_stick_x);
-
-		  if (gamepad2.dpad_left) {
-			 gamepad2DpadLeftDebouncer.run();
-		  } else if (gamepad2.dpad_right) {
-			 gamepad2DpadRightDebouncer.run();
-		  }
 
 		  if (gamepad2.left_stick_y < 0) {
 			 bot.lift.setRelativePosition(SBBConfiguration.LIFT_POSITION_DELTA);
@@ -103,6 +97,13 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 		  } else if (gamepad2.right_stick_y > 0) {
 			 bot.tilt.setRelativePosition(-1 * SBBConfiguration.TILT_POSITION_DELTA);
 		  }
+
+		  if (gamepad2.dpad_left) {
+			 gamepad2DpadLeftDebouncer.run();
+		  } else if (gamepad2.dpad_right) {
+			 gamepad2DpadRightDebouncer.run();
+		  }
+
 
 		  if (gamepad2.dpad_up) {
 			 gamepad2DpadUpDebouncer.run();
@@ -128,23 +129,7 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 			 gamepad2RightBumperDebouncer.run();
 		  }
 
-//		  if (gamepad2.right_stick_y > 0) {
-//			 bot.lift.setPower(gamepad2RightStickModifier.modify(-1 * gamepad2.right_stick_y));
-//		  } else if (gamepad2.right_stick_y < 0) {
-//			 bot.lift.setPower(gamepad2RightStickModifier.modify(-1 * gamepad2.right_stick_y));
-//		  } else if (gamepad2.dpad_up) {
-//			 liftUpDebouncer.run();
-//		  } else if (gamepad2.dpad_down) {
-//			 liftDownDebouncer.run();
-//		  } else if (gamepad2.x) {
-//			 liftGroundDebouncer.run();
-//		  }
-//		  if (gamepad2.b) {
-//			 bot.lift.stop();
-//		  }
-//		  if (gamepad2.right_bumper) {
-//			 clawDebouncer.run();
-//		  }
+
 
 		  telemetry.addData("lift", bot.lift.getPosition());
 		  telemetry.addData("tilt", bot.tilt.getPosition());

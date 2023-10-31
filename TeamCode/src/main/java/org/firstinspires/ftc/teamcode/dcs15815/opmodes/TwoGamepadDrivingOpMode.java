@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAnalogModifier;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
-import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDelayedSequence;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.StickyBanditBot;
 
@@ -16,7 +15,7 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
     private DefenderDebouncer gamepad2DpadUpDebouncer, gamepad2DpadDownDebouncer, gamepad2DpadLeftDebouncer, gamepad2DpadRightDebouncer;
     private DefenderDebouncer gamepad2ADebouncer, gamepad2BDebouncer, gamepad2XDebouncer, gamepad2YDebouncer;
     private DefenderDebouncer gamepad2LeftBumperDebouncer, gamepad2RightBumperDebouncer;
-    private DefenderAnalogModifier gamepad2RightStickModifier, gamepad1LeftStickYModifier, gamepad1LeftStickXModifier;
+    private DefenderAnalogModifier gamepad2RightStickModifier, gamepad1LeftStickYModifier, gamepad1RightStickXModifier;
 
     public boolean isReadyToHang = false;
 
@@ -28,10 +27,10 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 //			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_CURVE,
 //			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_MAX
 //	   );
-//	   gamepad1LeftStickXModifier = new DefenderAnalogModifier(
-//			 SBBConfiguration.GAMEPAD1_LEFT_STICK_X_CURVE,
-//			 SBBConfiguration.GAMEPAD1_LEFT_STICK_X_MAX
-//	   );
+	   gamepad1RightStickXModifier = new DefenderAnalogModifier(
+			 SBBConfiguration.GAMEPAD1_RIGHT_STICK_X_CURVE,
+			 SBBConfiguration.GAMEPAD1_RIGHT_STICK_X_MAX
+	   );
 
 //	   gamepad2RightStickModifier = new DefenderAnalogModifier(
 //			 SBBConfiguration.GAMEPAD2_RIGHT_STICK_CURVE,
@@ -66,11 +65,12 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 
 	   });
 	   gamepad2BDebouncer = new DefenderDebouncer(500, () -> {
-		  bot.grabPixels();
+		  bot.runGrabPixelsMacro();
 
 	   });
 	   gamepad2XDebouncer = new DefenderDebouncer(500, () -> {
 		  bot.gotoTravelArmPosition();
+		  bot.armPresets.select(1);
 	   });
 	   gamepad2YDebouncer = new DefenderDebouncer(500, () -> {
 		  bot.wrist.setRelativePosition(SBBConfiguration.WRIST_POSITION_DELTA);
@@ -91,7 +91,7 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 		  bot.drivetrain.drive(
 				-1 * gamepad1.left_stick_y,
 				(gamepad1.right_trigger - gamepad1.left_trigger),
-				gamepad1.right_stick_x);
+				gamepad1RightStickXModifier.modify(gamepad1.right_stick_x));
 
 		  if (gamepad2.left_stick_y < 0) {
 			 bot.lift.setRelativePosition(SBBConfiguration.LIFT_POSITION_DELTA);

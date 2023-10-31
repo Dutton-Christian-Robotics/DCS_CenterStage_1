@@ -40,6 +40,9 @@ public class SBBNavigation extends DefenderBotSystem {
 
     }
 
+//    public void linkSensors(SBBSensors s) {
+//	   sensors = s;
+//    }
     public void linkDrivetrain(SBBMecanumDrivetrain dt) {
 	   drivetrain = dt;
 //	   System.out.println("FLAG");
@@ -107,7 +110,7 @@ public class SBBNavigation extends DefenderBotSystem {
 	   comeToHeading(angle, SBBConfiguration.NAVIGATION_POWER_DEFAULT, SBBConfiguration.NAVIGATION_TOLERANCE_ROTATION, SBBConfiguration.NAVIGATION_TIMEOUT_DEFAULT);
     }
 
-    double[] getDistanceInches() {
+    public double[] getDistanceInches() {
 	   double[] distances = {0.0, 0.0};
 
 	   encoderMatrix.put(0, 0, (float) ((frontLeft.getCurrentPosition() - frontLeftOffset) * SBBConfiguration.NAVIGATION_INCHES_PER_TICK));

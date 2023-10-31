@@ -28,12 +28,12 @@ public class SBBStickyPad extends DefenderBotSystem {
 	   leftReleaseSequence = new DefenderDelayedSequence(
 		  () -> { leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE); },
 		  () -> { leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB); },
-		  1000
+		  2000
 	   );
 	   rightReleaseSequence = new DefenderDelayedSequence(
 		  () -> { rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE); },
 		  () -> { rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB); },
-		  1000
+		  2000
 	   );
 
     }

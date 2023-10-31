@@ -20,7 +20,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static DcMotorSimple.Direction DRIVETRAIN_FRONTRIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static DcMotorSimple.Direction DRIVETRAIN_BACKRIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;
 
-    public static double DRIVETRAIN_POWER_MAX = 1.0;
+    public static double DRIVETRAIN_POWER_MAX = 0.35;
     public static int DRIVETRAIN_MAX_TICKS_PER_SECOND = 2800;
 
     /* LIFT -------------------------------------------------------- */
@@ -47,17 +47,17 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double TILT_POWER_MAX = 0.5;
     public static int TILT_POSITION_MAX = 3080;
     public static int TILT_POSITION_UP = 2200;
-    public static int TILT_POSITION_TRAVEL = 200;
+    public static int TILT_POSITION_TRAVEL = 250;
     public static int TILT_POSITION_GROUND = 0;
-    public static int TILT_POSITION_MIN = -100;
+    public static int TILT_POSITION_MIN = -300;
     public static int TILT_POSITION_DELTA = 250;
 
     public static double TILT_MOTOR_KP = 0;
     public static double TILT_MOTOR_KI = 0;
     public static double TILT_MOTOR_KD = 0;
 
-    /* WRIST -------------------------------------------------------- */
 
+    /* WRIST -------------------------------------------------------- */
 
     public static String WRIST_LEFT_SERVO_NAME = "wrist_left_servo";
     public static String WRIST_RIGHT_SERVO_NAME = "wrist_right_servo";
@@ -70,13 +70,14 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double WRIST_RIGHT_SERVO_POSITION_TRAVEL = 0.225;
     public static double WRIST_POSITION_DELTA = 0.1;
 
-    /* STICKYPAD -------------------------------------------------------- */
 
+    /* STICKYPAD -------------------------------------------------------- */
 
     public static String STICKYPAD_LEFT_SERVO_NAME = "stickypad_left_servo";
     public static String STICKYPAD_RIGHT_SERVO_NAME = "stickypad_right_servo";
     public static double STICKYPAD_POSITION_GRAB = 1;
     public static double STICKYPAD_POSITION_RELEASE = 0.3;
+
 
     /* GAMEPADS -------------------------------------------------------- */
 
@@ -86,8 +87,8 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double GAMEPAD1_LEFT_STICK_Y_CURVE = 2.5;
     public static double GAMEPAD1_LEFT_STICK_Y_MAX = 1;
 
-    public static double GAMEPAD1_LEFT_STICK_X_CURVE = 2;
-    public static double GAMEPAD1_LEFT_STICK_X_MAX = 1;
+    public static double GAMEPAD1_RIGHT_STICK_X_CURVE = 2;
+    public static double GAMEPAD1_RIGHT_STICK_X_MAX = 1;
 
 
     /* NAVIGATON -------------------------------------------------------- */
@@ -129,7 +130,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
             SBBConfiguration.TILT_POSITION_GROUND,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
-    public static SBBArmPosition GRAB_LOW_POSITION = new SBBArmPosition(
+    public static SBBArmPosition GRAB_CONTACT_POSITION = new SBBArmPosition(
             SBBConfiguration.LIFT_POSITION_GROUND,
             SBBConfiguration.TILT_POSITION_MIN,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
@@ -139,10 +140,20 @@ public class SBBConfiguration extends DefenderBotConfiguration {
             SBBConfiguration.TILT_POSITION_MIN,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
+    public static SBBArmPosition AUTONOMOUS_DROP_POSITION = new SBBArmPosition(
+            200,
+            SBBConfiguration.TILT_POSITION_GROUND,
+            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
+
     public static SBBArmPosition TRAVEL_POSITION = new SBBArmPosition(
             SBBConfiguration.LIFT_POSITION_GROUND,
             SBBConfiguration.TILT_POSITION_TRAVEL,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TRAVEL);
+
+    public static SBBArmPosition LEAVE_STACK_POSITION = new SBBArmPosition(
+            1000,
+            SBBConfiguration.TILT_POSITION_GROUND,
+            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
     public static SBBArmPosition LOW_FRONT_DELIVERY_POSITION = new SBBArmPosition(
             0,
@@ -170,6 +181,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
 
     public static DefenderPresets<SBBArmPosition> ARM_PRESETS = new DefenderPresets<>(
             SBBConfiguration.START_POSITION,
+            SBBConfiguration.TRAVEL_POSITION,
             SBBConfiguration.LOW_FRONT_DELIVERY_POSITION,
             SBBConfiguration.MID_FRONT_DELIVERY_POSITION,
             SBBConfiguration.HIGH_BACK_DELIVERY_POSITION

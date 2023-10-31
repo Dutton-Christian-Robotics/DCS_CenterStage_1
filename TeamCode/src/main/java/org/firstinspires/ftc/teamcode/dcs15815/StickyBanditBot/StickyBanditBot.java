@@ -13,6 +13,8 @@ public class StickyBanditBot extends DefenderBot {
 //    public SBBSensors sensors;
 //    public SBBNavigation navigation;
     public SBBMecanumDrivetrain drivetrain;
+    public SBBNavigation navigation;
+    public SBBSensors sensors;
     public SBBLift lift;
     public SBBTilt tilt;
     public SBBWrist wrist;
@@ -26,6 +28,9 @@ public class StickyBanditBot extends DefenderBot {
 	   super(hm, configClass, t);
 
 	   drivetrain = addSystem(SBBMecanumDrivetrain.class);
+	   sensors = addSystem(SBBSensors.class);
+	   navigation = addSystem(SBBNavigation.class);
+	   navigation.linkDrivetrain(drivetrain);
 	   lift = addSystem(SBBLift.class);
 	   tilt = addSystem(SBBTilt.class);
 	   wrist = addSystem(SBBWrist.class);
@@ -36,12 +41,12 @@ public class StickyBanditBot extends DefenderBot {
 	   grabPixelSequence = new DefenderDelayedSequence(
 		  () -> {
 			 gotoGrabReadyArmPosition();
-			 gotoGrabArmPosition();
+			 gotoGrabContactArmPosition();
 		  },
 		  () -> {
-			gotoTravelArmPosition();
+			 gotoLeaveStackArmPosition();
 		  },
-		  2000
+		  1000
 	   );
 
 
@@ -71,14 +76,14 @@ public class StickyBanditBot extends DefenderBot {
 	   gotoArmPosition(armPresets.selected());
     }
 
-    public void gotoGrabArmPosition() {
-	   gotoArmPosition(SBBConfiguration.GRAB_LOW_POSITION);
+    public void gotoGrabContactArmPosition() {
+	   gotoArmPosition(SBBConfiguration.GRAB_CONTACT_POSITION);
     }
     public void gotoGrabReadyArmPosition() {
 	   gotoArmPosition(SBBConfiguration.GRAB_READY_POSITION);
     }
 
-    public void grabPixels() {
+    public void runGrabPixelsMacro() {
 	   grabPixelSequence.run();
     }
 
@@ -92,6 +97,11 @@ public class StickyBanditBot extends DefenderBot {
     public void gotoTravelArmPosition() {
 	   gotoArmPosition(SBBConfiguration.TRAVEL_POSITION);
     }
+
+    public void gotoLeaveStackArmPosition() {
+	   gotoArmPosition(SBBConfiguration.LEAVE_STACK_POSITION);
+    }
+
 
     public void gotoStartArmPosition() {
 	   gotoArmPosition(SBBConfiguration.START_POSITION);

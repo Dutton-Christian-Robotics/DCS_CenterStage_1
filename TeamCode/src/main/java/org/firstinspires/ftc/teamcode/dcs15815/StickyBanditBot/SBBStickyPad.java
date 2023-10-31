@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotSystem;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDelayedSequence;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,14 +16,26 @@ public class SBBStickyPad extends DefenderBotSystem {
     private Servo leftServo, rightServo;
     public double position;
 
-    static ExecutorService es = Executors.newSingleThreadExecutor();
-
+//    static ExecutorService es = Executors.newSingleThreadExecutor();
+	public DefenderDelayedSequence rightReleaseSequence, leftReleaseSequence;
 
     public SBBStickyPad(HardwareMap hm, DefenderBot b) {
 	   super(hm, b);
 
 	   leftServo = hm.servo.get(SBBConfiguration.STICKYPAD_LEFT_SERVO_NAME);
 	   rightServo = hm.servo.get(SBBConfiguration.STICKYPAD_RIGHT_SERVO_NAME);
+
+	   leftReleaseSequence = new DefenderDelayedSequence(
+		  () -> { leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE); },
+		  () -> { leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB); },
+		  1000
+	   );
+	   rightReleaseSequence = new DefenderDelayedSequence(
+		  () -> { rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE); },
+		  () -> { rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB); },
+		  1000
+	   );
+
     }
 
 // ----------------------------------------
@@ -45,28 +58,30 @@ public class SBBStickyPad extends DefenderBotSystem {
     }
 
     public void releaseLeft() {
-	   leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE);
-	   es.submit(() -> {
-		  try {
-			 TimeUnit.MILLISECONDS.sleep(1000);
-			 leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB);
-		  } catch (InterruptedException e) {
-			 e.printStackTrace();
-		  }
-	   });
+	   leftReleaseSequence.run();
+//	   leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE);
+//	   es.submit(() -> {
+//		  try {
+//			 TimeUnit.MILLISECONDS.sleep(1000);
+//			 leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB);
+//		  } catch (InterruptedException e) {
+//			 e.printStackTrace();
+//		  }
+//	   });
 
     }
 
     public void releaseRight() {
-	   rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE);
-	   es.submit(() -> {
-		  try {
-			 TimeUnit.MILLISECONDS.sleep(1000);
-			 rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB);
-		  } catch (InterruptedException e) {
-			 e.printStackTrace();
-		  }
-	   });
+	   rightReleaseSequence.run();
+//	   rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE);
+//	   es.submit(() -> {
+//		  try {
+//			 TimeUnit.MILLISECONDS.sleep(1000);
+//			 rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB);
+//		  } catch (InterruptedException e) {
+//			 e.printStackTrace();
+//		  }
+//	   });
 
     }
 

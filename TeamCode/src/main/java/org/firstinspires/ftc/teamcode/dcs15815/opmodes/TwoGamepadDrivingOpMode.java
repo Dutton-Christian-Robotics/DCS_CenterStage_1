@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderAnalogModifier;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDelayedSequence;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.StickyBanditBot;
 
@@ -16,6 +17,8 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
     private DefenderDebouncer gamepad2ADebouncer, gamepad2BDebouncer, gamepad2XDebouncer, gamepad2YDebouncer;
     private DefenderDebouncer gamepad2LeftBumperDebouncer, gamepad2RightBumperDebouncer;
     private DefenderAnalogModifier gamepad2RightStickModifier, gamepad1LeftStickYModifier, gamepad1LeftStickXModifier;
+
+    public boolean isReadyToHang = false;
 
      @Override
     public void runOpMode() {
@@ -37,6 +40,7 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 
 	   gamepad2DpadUpDebouncer = new DefenderDebouncer(500, () -> {
 		  bot.gotoNextArmPosition();
+
 //		  bot.lift.setRelativePosition(SBBConfiguration.LIFT_POSITION_DELTA);
 	   });
 	   gamepad2DpadDownDebouncer = new DefenderDebouncer(500, () -> {
@@ -47,7 +51,13 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 //		  bot.tilt.setRelativePosition(-1 * SBBConfiguration.TILT_POSITION_DELTA);
 	   });
 	   gamepad2DpadRightDebouncer = new DefenderDebouncer(500, () -> {
-		  bot.gotoHangArmPosition();
+		  if (!isReadyToHang) {
+			 bot.gotoHangArmPosition();
+			 isReadyToHang = true;
+		  } else {
+			 bot.gotoHangingArmPosition();
+			 isReadyToHang = false;
+		  }
 
 //		  bot.tilt.setRelativePosition(SBBConfiguration.TILT_POSITION_DELTA);
 	   });
@@ -56,10 +66,7 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 
 	   });
 	   gamepad2BDebouncer = new DefenderDebouncer(500, () -> {
-		  bot.gotoGrabArmPosition();
-//		  bot.lift.setPosition(0);
-//		  bot.tilt.setPosition(2851);
-//		  bot.wrist.setPosition(0.85);
+		  bot.grabPixels();
 
 	   });
 	   gamepad2XDebouncer = new DefenderDebouncer(500, () -> {

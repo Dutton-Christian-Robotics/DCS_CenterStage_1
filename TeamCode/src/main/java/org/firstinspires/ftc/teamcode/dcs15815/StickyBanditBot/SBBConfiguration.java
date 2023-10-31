@@ -44,7 +44,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static String TILT_RIGHT_MOTOR_NAME = "tilt_right_motor";
     public static DcMotorSimple.Direction TILT_LEFT_MOTOR_DIRECTION = DcMotorSimple.Direction.REVERSE;
     public static DcMotorSimple.Direction TILT_RIGHT_MOTOR_DIRECTION = DcMotorSimple.Direction.FORWARD;
-    public static double TILT_POWER_MAX = 1;
+    public static double TILT_POWER_MAX = 0.5;
     public static int TILT_POSITION_MAX = 3080;
     public static int TILT_POSITION_UP = 2200;
     public static int TILT_POSITION_TRAVEL = 200;
@@ -129,8 +129,13 @@ public class SBBConfiguration extends DefenderBotConfiguration {
             SBBConfiguration.TILT_POSITION_GROUND,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
-    public static SBBArmPosition GRAB_POSITION = new SBBArmPosition(
+    public static SBBArmPosition GRAB_LOW_POSITION = new SBBArmPosition(
             SBBConfiguration.LIFT_POSITION_GROUND,
+            SBBConfiguration.TILT_POSITION_MIN,
+            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
+
+    public static SBBArmPosition GRAB_READY_POSITION = new SBBArmPosition(
+            1350,
             SBBConfiguration.TILT_POSITION_MIN,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
@@ -151,12 +156,17 @@ public class SBBConfiguration extends DefenderBotConfiguration {
 
     public static SBBArmPosition HIGH_BACK_DELIVERY_POSITION = new SBBArmPosition(
             0,
-            2851,
+            2037,
             0.85);
     public static SBBArmPosition HANG_POSITION = new SBBArmPosition(
-            2601,
+            1998,
             1523,
             .225);
+    public static SBBArmPosition HANGING_POSITION = new SBBArmPosition(
+            1998,
+            31,
+            .225);
+
 
     public static DefenderPresets<SBBArmPosition> ARM_PRESETS = new DefenderPresets<>(
             SBBConfiguration.START_POSITION,

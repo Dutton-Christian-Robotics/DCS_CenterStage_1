@@ -21,7 +21,7 @@ public class TiltTestOpMode extends LinearOpMode {
 	   tiltLeftMotor = hardwareMap.dcMotor.get("tilt_left_motor");
 	   tiltRightMotor = hardwareMap.dcMotor.get("tilt_right_motor");
 
-	   tiltLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+	   tiltLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 	   tiltRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
 	   tiltLeftMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);

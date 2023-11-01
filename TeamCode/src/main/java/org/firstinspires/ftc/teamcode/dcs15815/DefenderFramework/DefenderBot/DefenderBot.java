@@ -19,6 +19,8 @@ public class DefenderBot {
     public ArrayList<DefenderBotSystem> systems = new ArrayList<DefenderBotSystem>();
     public Telemetry telemetry;
 
+    public Alliance alliance;
+
 
     public DefenderBot(HardwareMap hm, Class<? extends DefenderBotConfiguration> configClass, Telemetry t) {
 	   hardwareMap = hm;
@@ -90,6 +92,12 @@ public class DefenderBot {
 	   } catch (Exception e) {
 		  //something should happen here
 	   }
+    }
+
+    public enum Alliance {
+	   NONE,
+	   RED,
+	   BLUE
     }
 
 }

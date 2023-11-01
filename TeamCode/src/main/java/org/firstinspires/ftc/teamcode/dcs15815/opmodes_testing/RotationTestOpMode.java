@@ -12,12 +12,15 @@ public class RotationTestOpMode extends LinearOpMode {
 
     public void runOpMode() {
 	   bot = new StickyBanditBot(hardwareMap, SBBConfiguration.class, telemetry);
+	   bot.opMode = this;
 
 	   waitForStart();
-		double d = 0;
-	   while (opModeIsActive()) {
-		d += 90;
-		bot.navigation.comeToHeading(d, 0.25, 5, 10000);
-	   }
+//		double d = 0;
+//	   while (opModeIsActive()) {
+//		d += 150;
+		bot.drivetrain.drive(0,0,0.1);
+		sleep(1000);
+		bot.stopDriving();
+//	   }
     }
 }

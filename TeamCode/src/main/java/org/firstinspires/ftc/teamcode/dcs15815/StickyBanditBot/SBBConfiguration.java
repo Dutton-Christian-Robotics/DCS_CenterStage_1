@@ -88,7 +88,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double GAMEPAD1_LEFT_STICK_Y_MAX = 1;
 
     public static double GAMEPAD1_RIGHT_STICK_X_CURVE = 2;
-    public static double GAMEPAD1_RIGHT_STICK_X_MAX = 1;
+    public static double GAMEPAD1_RIGHT_STICK_X_MAX = 0.5;
 
 
     /* NAVIGATON -------------------------------------------------------- */

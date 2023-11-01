@@ -23,10 +23,10 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
     public void runOpMode() {
 	   bot = new StickyBanditBot(hardwareMap, SBBConfiguration.class, telemetry);
 
-//	   gamepad1LeftStickYModifier = new DefenderAnalogModifier(
-//			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_CURVE,
-//			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_MAX
-//	   );
+	   gamepad1LeftStickYModifier = new DefenderAnalogModifier(
+			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_CURVE,
+			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_MAX
+	   );
 	   gamepad1RightStickXModifier = new DefenderAnalogModifier(
 			 SBBConfiguration.GAMEPAD1_RIGHT_STICK_X_CURVE,
 			 SBBConfiguration.GAMEPAD1_RIGHT_STICK_X_MAX
@@ -89,7 +89,7 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 
 	   while (opModeIsActive()) {
 		  bot.drivetrain.drive(
-				-1 * gamepad1.left_stick_y,
+				-1 * gamepad1LeftStickYModifier.modify(gamepad1.left_stick_y),
 				(gamepad1.right_trigger - gamepad1.left_trigger),
 				gamepad1RightStickXModifier.modify(gamepad1.right_stick_x));
 

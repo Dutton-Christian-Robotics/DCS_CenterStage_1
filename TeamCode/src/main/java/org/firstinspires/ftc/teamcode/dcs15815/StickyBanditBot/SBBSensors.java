@@ -38,10 +38,15 @@ public class SBBSensors extends DefenderBotSystem {
 	   );
     }
 
-//    public double currentHeading() {
-//        Orientation orientation = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-//        return orientation.thirdAngle;
-//    }
+    public double currentHeading() {
+	   Orientation myRobotOrientation;
+	   myRobotOrientation = imu.getRobotOrientation(
+			 AxesReference.INTRINSIC,
+			 AxesOrder.XYZ,
+			 AngleUnit.DEGREES
+	   );
+	   return myRobotOrientation.thirdAngle;
+    }
 
 //    public double getHeading() {
 //        Orientation orientation;
@@ -52,13 +57,7 @@ public class SBBSensors extends DefenderBotSystem {
 //    }
 
     public double getIntegratedHeading() {
-	   Orientation myRobotOrientation;
-	   myRobotOrientation = imu.getRobotOrientation(
-			 AxesReference.EXTRINSIC,
-			 AxesOrder.XYZ,
-			 AngleUnit.DEGREES
-	   );
-	   double currentHeading = myRobotOrientation.thirdAngle;
+	   double currentHeading = currentHeading();
 
 
 //	   double currentHeading = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;

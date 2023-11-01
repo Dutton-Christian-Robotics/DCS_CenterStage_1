@@ -67,6 +67,7 @@ public class SBBNavigation extends DefenderBotSystem {
 	   return (x > min) && (x < max);
     }
 
+
     public void comeToHeading(double angle, double maxPower, double tolerance, double timeout) {
 	   double difference, absDifference, currentAngle;
 	   boolean keepTurning = true;
@@ -75,30 +76,46 @@ public class SBBNavigation extends DefenderBotSystem {
 	   double powerCutoffThreshold = 0.01;
 	   double targetAngle = angleWrap(angle);
 
+	   angle = targetAngle;
+
 	   //Orientation orientation;
 
-	   DefenderPIDController pid = new DefenderPIDController(
-			 SBBConfiguration.NAVIGATION_ROTATION_KP,
-			 SBBConfiguration.NAVIGATION_ROTATION_KI,
-			 SBBConfiguration.NAVIGATION_ROTATION_KD
-	   );
+//	   DefenderPIDController pid = new DefenderPIDController(
+//			 SBBConfiguration.NAVIGATION_ROTATION_KP,
+//			 SBBConfiguration.NAVIGATION_ROTATION_KI,
+//			 SBBConfiguration.NAVIGATION_ROTATION_KD
+//	   );
 	   double power;
 	   do {
 		  currentAngle = sensors.getIntegratedHeading();
-//		  difference = currentAngle - angle;
-//		  absDifference = Math.abs(difference);
-
-		  power = pid.calculatePower(targetAngle, currentAngle);
-		  if (power <= powerCutoffThreshold) {
-			 break;
+//		  currentAngle = sensors.currentHeading();
+		  difference = currentAngle - angle;
+		  absDifference = Math.abs(difference);
+		  if ((absDifference < tolerance) || (timer.milliseconds() >= timeout)) {
+			 keepTurning = false;
+			 power = 0;
+		  } else if (absDifference > 90) {
+			 power = 1;
+		  } else if (absDifference > 30) {
+			 power = 0.5;
+		  } else {
+//		  } else if (absDifference > 10) {
+			 power = 0.25;
+//		  } else {
+//			 power = 0.1;
 		  }
-		  drivetrain.drive(0, 0, -1 * power);
+		  if (difference < 0) {
+			 difference *= -1;
+		  }
+
+//		  power = pid.calculatePower(targetAngle, currentAngle);
+//		  if (power <= powerCutoffThreshold) {
+//			 break;
+//		  }
+		  drivetrain.drive(0, 0, -1 * power * maxPower);
 		  sleep(sleepLength);
 
-		  if (timer.milliseconds() >= timeout) {
-			 keepTurning = false;
-		  }
-	   } while (keepTurning);
+	   } while (keepTurning && !bot.opMode.isStopRequested());
 
     }
 
@@ -136,23 +153,35 @@ public class SBBNavigation extends DefenderBotSystem {
 	   backRightOffset = backRight.getCurrentPosition();
     }
 
-    public void driveToPosition(double x, double y, double heading) {
+    public void driveToPosition(double x, double y, double heading, double maxPower) {
 
-	   double[] d = getDistanceInches();
+//	   double[] d = getDistanceInches();
+	   double[] d = {0, 0, 0};
 	   double deltaY, deltaX, deltaH;
 	   double pX, pY, pH;
 	   double h = sensors.getIntegratedHeading();
 	   double rotation = 0;
 	   double averageError = 0;
+	   double powerReduction = 1;
+	   double totalDistance;
+	   double totalPower = 0;
 
-	   while ((Math.abs(y - d[0]) > SBBConfiguration.NAVIGATION_TOLERANCE_Y) || (Math.abs(x - d[1]) > SBBConfiguration.NAVIGATION_TOLERANCE_X) || (Math.abs(heading - h) > SBBConfiguration.NAVIGATION_TOLERANCE_ROTATION)) {
+	   do {
 		  deltaX = x - d[1];
 		  deltaY = y - d[0];
 		  deltaH = h - heading;
-		  bot.telemetry.addData("dX", deltaX);
-		  bot.telemetry.addData("dY", deltaY);
-		  bot.telemetry.addData("dH", deltaH);
-		  bot.telemetry.update();
+
+		  totalDistance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+		  if (totalDistance > 9) {
+			 powerReduction = 0.5;
+		  } else if (totalDistance > 4) {
+			 powerReduction = 0.15;
+		  } else {
+			 powerReduction = 0.05;
+		  }
+
+
 //		  System.out.println("DRIVE REPORT");
 //		  System.out.println(deltaX);
 //		  System.out.println(deltaY);
@@ -165,8 +194,6 @@ public class SBBNavigation extends DefenderBotSystem {
 //            bot.telemetry.update();
 
 
-
-
 //            if (h > heading) {
 //                rotation = 0.5;
 //            } else if (h < heading) {
@@ -174,7 +201,8 @@ public class SBBNavigation extends DefenderBotSystem {
 //            }
 
 
-		  averageError = (Math.abs(deltaX) + Math.abs(deltaY) + Math.abs(deltaH)) / 3;
+//		  averageError = (Math.abs(deltaX) + Math.abs(deltaY) + Math.abs(deltaH)) / 3;
+		  averageError = (Math.abs(deltaX) + Math.abs(deltaY)) / 2;
 //            bot.telemetry.addData("Avg", averageError);
 //            pX = powerDropoff(x, d[1]);
 //            pY = powerDropoff(y, d[0]);
@@ -183,31 +211,36 @@ public class SBBNavigation extends DefenderBotSystem {
 //            pX = powerDropoff(x, d[1]) * (deltaX / averageError);
 //            pY = powerDropoff(y, d[0]) * (deltaY / averageError);
 //            pH = powerDropoff(heading, h) * (deltaH / averageError);
-		  pX = (deltaX / averageError);
-		  pY = (deltaY / averageError);
-		  pH = (deltaH / averageError);
+		  pX = (deltaX / averageError) * maxPower * powerReduction;
+		  pY = (deltaY / averageError) * maxPower * powerReduction;
+//		  pH = (deltaH / averageError) * maxPower;
+		  pH = 0;
+		  totalPower = Math.abs(pX) + Math.abs(pY);
 
-//            bot.telemetry.addData("px", pX);
-//            bot.telemetry.addData("py", pY);
-//            bot.telemetry.addData("ph", pH);
+		  bot.telemetry.addData("dX", deltaX);
+		  bot.telemetry.addData("dY", deltaY);
+		  bot.telemetry.addData("dH", deltaH);
+		  bot.telemetry.addData("distance", totalDistance);
+		  bot.telemetry.addData("power", totalPower);
+		  bot.telemetry.update();
 
 
-//            bot.telemetry.update();
 //            bot.drive(powerDropoff(y, d[0]), powerDropoff(x, d[1]), 0);
 		  drivetrain.drive(pY, pX, pH);
 		  d = getDistanceInches();
 		  h = sensors.getIntegratedHeading();
-	   }
+//	   } while ((Math.abs(y - d[0]) > SBBConfiguration.NAVIGATION_TOLERANCE_Y) || (Math.abs(x - d[1]) > SBBConfiguration.NAVIGATION_TOLERANCE_X) || (Math.abs(heading - h) > SBBConfiguration.NAVIGATION_TOLERANCE_ROTATION)) {
+	   } while ((totalPower > 0.05) && (totalDistance > SBBConfiguration.NAVIGATION_TOLERANCE_Y) && !bot.opMode.isStopRequested());
 	   bot.stopDriving();
 
     }
 
     public void driveToPosition(double x, double y) {
-	   driveToPosition(x, y, 0.0);
+	   driveToPosition(x, y, 0.0, 1);
     }
 
     public void driveToPosition(DefenderBotPosition position) {
-	   driveToPosition(position.getX(), position.getY(), position.getHeading());
+	   driveToPosition(position.getX(), position.getY(), position.getHeading(), 1);
     }
 
 //    public DefenderBotPosition getCurrentPosition() {

@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot;
 
 //import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -20,6 +22,7 @@ public class DefenderBot {
     public Telemetry telemetry;
 
     public Alliance alliance;
+    public LinearOpMode opMode;
 
 
     public DefenderBot(HardwareMap hm, Class<? extends DefenderBotConfiguration> configClass, Telemetry t) {

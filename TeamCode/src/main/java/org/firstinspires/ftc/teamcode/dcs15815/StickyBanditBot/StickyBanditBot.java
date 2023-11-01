@@ -15,6 +15,8 @@ public class StickyBanditBot extends DefenderBot {
     public SBBMecanumDrivetrain drivetrain;
     public SBBNavigation navigation;
     public SBBSensors sensors;
+    public SBBVision vision;
+    public SBBEffectsLeds leds;
     public SBBLift lift;
     public SBBTilt tilt;
     public SBBWrist wrist;
@@ -23,11 +25,15 @@ public class StickyBanditBot extends DefenderBot {
     public DefenderPresets<SBBArmPosition> armPresets;
     public DefenderDelayedSequence grabPixelSequence;
 
+    private PropVisionProcessor.PropPosition position;
+
+
 
     public StickyBanditBot(HardwareMap hm, Class configClass, Telemetry t) {
 	   super(hm, configClass, t);
 
 	   drivetrain = addSystem(SBBMecanumDrivetrain.class);
+	   vision = addSystem(SBBVision.class);
 	   sensors = addSystem(SBBSensors.class);
 	   navigation = addSystem(SBBNavigation.class);
 	   navigation.linkDrivetrain(drivetrain);
@@ -35,6 +41,7 @@ public class StickyBanditBot extends DefenderBot {
 	   tilt = addSystem(SBBTilt.class);
 	   wrist = addSystem(SBBWrist.class);
 	   stickyPad = addSystem(SBBStickyPad.class);
+	   leds = addSystem(SBBEffectsLeds.class);
 
 	   armPresets = SBBConfiguration.ARM_PRESETS;
 

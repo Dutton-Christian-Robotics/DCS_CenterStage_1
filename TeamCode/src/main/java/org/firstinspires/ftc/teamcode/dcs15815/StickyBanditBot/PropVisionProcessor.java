@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
+import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -17,7 +18,7 @@ public class PropVisionProcessor implements VisionProcessor {
     public Rect rectRight = new Rect(540, 120, 100, 360);
 
     PropPosition position = PropPosition.NONE;
-    Alliance alliance = Alliance.NONE;
+    DefenderBot.Alliance alliance = DefenderBot.Alliance.NONE;
     double detectedHue = 0;
     Mat submat = new Mat();
     Mat hsvMat = new Mat();
@@ -112,7 +113,7 @@ public class PropVisionProcessor implements VisionProcessor {
 	   return position;
     }
 
-    public Alliance getAlliance() {
+    public DefenderBot.Alliance getAlliance() {
 	   return alliance;
     }
 
@@ -120,11 +121,11 @@ public class PropVisionProcessor implements VisionProcessor {
 	   return detectedHue;
     }
 
-    public Alliance hueToAlliance(double h) {
+    public DefenderBot.Alliance hueToAlliance(double h) {
 	   if (h > 50) {
-		  return Alliance.BLUE;
+		  return DefenderBot.Alliance.BLUE;
 	   } else {
-		  return Alliance.RED;
+		  return DefenderBot.Alliance.RED;
 	   }
     }
 
@@ -133,9 +134,9 @@ public class PropVisionProcessor implements VisionProcessor {
 	   LEFT, MIDDLE, RIGHT
     }
 
-    public enum Alliance {
-	   NONE,
-	   RED,
-	   BLUE
-    }
+//    public enum Alliance {
+//	   NONE,
+//	   RED,
+//	   BLUE
+//    }
 }

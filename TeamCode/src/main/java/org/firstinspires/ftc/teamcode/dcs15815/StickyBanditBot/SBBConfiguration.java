@@ -187,6 +187,11 @@ public class SBBConfiguration extends DefenderBotConfiguration {
             SBBConfiguration.HIGH_BACK_DELIVERY_POSITION
     );
 
+    /* EFFECTS -------------------------------------------------------- */
+
+    public static String EFFECTS_LEDS_NAME = "effects_leds";
+
+
     /* METHODS -------------------------------------------------------- */
 
     public SBBConfiguration() {

@@ -14,12 +14,20 @@ public class SBBEffectsLeds extends DefenderBotSystem {
 	   leds = hm.get(RevBlinkinLedDriver.class, SBBConfiguration.EFFECTS_LEDS_NAME);
     }
 
+    public void setPattern(RevBlinkinLedDriver.BlinkinPattern p) {
+	   leds.setPattern(p);
+    }
+
+    public void turnLightsOff() {
+	   setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
+    }
+
     public void setRedAllianceColors() {
-	   leds.setPattern(RevBlinkinLedDriver.BlinkinPattern.LIGHT_CHASE_RED);
+	   setPattern(RevBlinkinLedDriver.BlinkinPattern.LIGHT_CHASE_RED);
     }
 
     public void setBlueAllianceColors() {
-	   leds.setPattern(RevBlinkinLedDriver.BlinkinPattern.LIGHT_CHASE_BLUE);
+	   setPattern(RevBlinkinLedDriver.BlinkinPattern.LIGHT_CHASE_BLUE);
     }
 
     public void setAllianceColors() {
@@ -28,7 +36,7 @@ public class SBBEffectsLeds extends DefenderBotSystem {
 	   } else if (bot.alliance == DefenderBot.Alliance.RED) {
 		  setRedAllianceColors();
 	   } else {
-		  leds.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
+		  setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
 	   }
     }
 

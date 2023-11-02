@@ -57,26 +57,47 @@ public class AutonomousNear1OpMode extends LinearOpMode {
                 sleep(2000);
                 bot.gotoTravelArmPosition();
                 bot.navigation.resetPositionTracking();
-                bot.navigation.driveToPosition(0, -25, 0, 0.1);
+                bot.navigation.driveToPosition(0, -20, 0, 0.1);
                 sleep(1500);
-                bot.navigation.comeToHeading(60, 0.25, 4, 4000);
-//                sleep(1500);
-                bot.drivetrain.drive(0.1, 0, 0);
-                sleep(3000);
+                bot.navigation.comeToRelativeHeading(40, 0.3, 4, 4000);
+                bot.navigation.resetPositionTracking();
+                bot.navigation.driveToPosition(0, 55, 0, 0.1);
+//                bot.drivetrain.drive(0.1, 0, 0);
+//                sleep(2700);
                 bot.stopDriving();
+                bot.gotoArmPosition(SBBConfiguration.AUTONOMOUS_FRONT_DELIVERY_POSITION);
+                sleep(2000);
+                bot.navigation.comeToRelativeHeading(55, 0.3, 4, 4000);
+                bot.navigation.resetPositionTracking();
+                bot.navigation.driveToPosition(0, 10, 0, 0.3);
+
                 bot.stickyPad.releaseLeft();
-                sleep(4000);
+                sleep(2000);
+                bot.gotoArmPosition(SBBConfiguration.HIGH_FRONT_DELIVERY_POSITION);
+                sleep(2000);
 
             } else if (position == PropPosition.LEFT) {
-                bot.navigation.driveToPosition(0, -35, 0, 0.1);
+                bot.navigation.driveToPosition(0, -32, 0, 0.1);
                 bot.stopDriving();
                 bot.sleep(1000);
-                bot.drivetrain.drive(0,0,0.1);
+                bot.navigation.comeToRelativeHeading(-90, 0.3, 1, 4000);
                 sleep(800);
                 bot.stopDriving();
                 bot.gotoTravelArmPosition();
                 sleep(1500);
                 bot.stickyPad.releaseRight();
+                sleep(2000);
+                bot.navigation.resetPositionTracking();
+                bot.navigation.driveToPosition(0, -40, 0, 0.1);
+                bot.stopDriving();
+                bot.gotoArmPosition(SBBConfiguration.HIGH_BACK_DELIVERY_POSITION);
+                sleep(2000);
+                bot.navigation.resetPositionTracking();
+                bot.navigation.driveToPosition(0, -6, 0, 0.1);
+                bot.stopDriving();
+                bot.stickyPad.releaseLeft();
+                sleep(4000);
+                bot.gotoTravelArmPosition();
                 sleep(2000);
 
 
@@ -97,12 +118,23 @@ public class AutonomousNear1OpMode extends LinearOpMode {
 //                bot.drivetrain.drive(0, -0.25, 0);
 //                sleep(800);
 
-                bot.navigation.comeToHeading(25, 0.5, 2, 4000);
+                bot.navigation.comeToRelativeHeading(35, 0.5, 1, 4000);
                 bot.drivetrain.drive(0.1, 0, 0);
-                sleep(1200);
+                sleep(2500);
+                bot.drivetrain.stopDriving();
+                bot.gotoArmPosition(SBBConfiguration.MID_FRONT_DELIVERY_POSITION);
+                sleep(1000);
+                bot.navigation.resetPositionTracking();
+                bot.navigation.driveToPosition(0, 40, 0, 0.1);
+                bot.navigation.comeToRelativeHeading(65, 0.35, 1, 4000);
+                sleep(300);
+                bot.gotoArmPosition(SBBConfiguration.AUTONOMOUS_FRONT_DELIVERY_POSITION);
+                sleep(1500);
                 bot.drivetrain.stopDriving();
                 bot.stickyPad.releaseLeft();
-                sleep(4000);
+                sleep(2000);
+                bot.gotoArmPosition(SBBConfiguration.MID_FRONT_DELIVERY_POSITION);
+                sleep(2000);
 
             }
         } else if (bot.alliance == DefenderBot.Alliance.BLUE) {

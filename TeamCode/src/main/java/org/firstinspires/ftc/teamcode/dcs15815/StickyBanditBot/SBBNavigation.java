@@ -67,8 +67,10 @@ public class SBBNavigation extends DefenderBotSystem {
 	   return (x > min) && (x < max);
     }
 
+    public void comeToRelativeHeading(double angle, double maxPower, double tolerance, double timeout) {
+	   double startingAngle = Math.floor(sensors.currentHeading());
+	   angle = startingAngle + angle;
 
-    public void comeToHeading(double angle, double maxPower, double tolerance, double timeout) {
 	   double difference, absDifference, currentAngle;
 	   boolean keepTurning = true;
 	   ElapsedTime timer = new ElapsedTime();
@@ -78,17 +80,9 @@ public class SBBNavigation extends DefenderBotSystem {
 
 	   angle = targetAngle;
 
-	   //Orientation orientation;
-
-//	   DefenderPIDController pid = new DefenderPIDController(
-//			 SBBConfiguration.NAVIGATION_ROTATION_KP,
-//			 SBBConfiguration.NAVIGATION_ROTATION_KI,
-//			 SBBConfiguration.NAVIGATION_ROTATION_KD
-//	   );
 	   double power;
 	   do {
-		  currentAngle = sensors.getIntegratedHeading();
-//		  currentAngle = sensors.currentHeading();
+		  currentAngle = Math.floor(sensors.currentHeading());
 		  difference = currentAngle - angle;
 		  absDifference = Math.abs(difference);
 		  if ((absDifference < tolerance) || (timer.milliseconds() >= timeout)) {
@@ -105,14 +99,65 @@ public class SBBNavigation extends DefenderBotSystem {
 //			 power = 0.1;
 		  }
 		  if (difference < 0) {
-			 difference *= -1;
+			 power *= -1;
 		  }
+		  bot.telemetry.addData("Target", angle);
+		  bot.telemetry.addData("Current", currentAngle);
+		  bot.telemetry.addData("Difference", difference);
+		  bot.telemetry.addData("Power", power);
+		  bot.telemetry.addData("Set Power", power * maxPower);
+		  bot.telemetry.update();
 
-//		  power = pid.calculatePower(targetAngle, currentAngle);
-//		  if (power <= powerCutoffThreshold) {
-//			 break;
-//		  }
-		  drivetrain.drive(0, 0, -1 * power * maxPower);
+
+		  drivetrain.drive(0, 0, power * maxPower);
+		  sleep(sleepLength);
+
+	   } while (keepTurning && !bot.opMode.isStopRequested());
+
+    }
+
+    public void comeToHeading(double angle, double maxPower, double tolerance, double timeout) {
+	   double startingAngle = Math.floor(sensors.currentHeading());
+
+	   double difference, absDifference, currentAngle;
+	   boolean keepTurning = true;
+	   ElapsedTime timer = new ElapsedTime();
+	   long sleepLength = 10;
+	   double powerCutoffThreshold = 0.01;
+	   double targetAngle = angleWrap(angle);
+
+	   angle = targetAngle;
+
+	   double power;
+	   do {
+		  currentAngle = Math.floor(sensors.currentHeading());
+		  difference = currentAngle - angle;
+		  absDifference = Math.abs(difference);
+		  if ((absDifference < tolerance) || (timer.milliseconds() >= timeout)) {
+			 keepTurning = false;
+			 power = 0;
+		  } else if (absDifference > 90) {
+			 power = 1;
+		  } else if (absDifference > 30) {
+			 power = 0.5;
+		  } else {
+//		  } else if (absDifference > 10) {
+			 power = 0.25;
+//		  } else {
+//			 power = 0.1;
+		  }
+		  if (difference < 0) {
+			 power *= -1;
+		  }
+		  bot.telemetry.addData("Target", angle);
+		  bot.telemetry.addData("Current", currentAngle);
+		  bot.telemetry.addData("Difference", difference);
+		  bot.telemetry.addData("Power", power);
+		  bot.telemetry.addData("Set Power", power * maxPower);
+		  bot.telemetry.update();
+
+
+		  drivetrain.drive(0, 0, power * maxPower);
 		  sleep(sleepLength);
 
 	   } while (keepTurning && !bot.opMode.isStopRequested());
@@ -182,35 +227,9 @@ public class SBBNavigation extends DefenderBotSystem {
 		  }
 
 
-//		  System.out.println("DRIVE REPORT");
-//		  System.out.println(deltaX);
-//		  System.out.println(deltaY);
-//		  System.out.println(deltaH);
-
-
-//            bot.telemetry.addData("x", deltaX);
-//            bot.telemetry.addData("y", deltaY);
-//            bot.telemetry.addData("h", deltaH);
-//            bot.telemetry.update();
-
-
-//            if (h > heading) {
-//                rotation = 0.5;
-//            } else if (h < heading) {
-//                rotation = -0.5;
-//            }
-
 
 //		  averageError = (Math.abs(deltaX) + Math.abs(deltaY) + Math.abs(deltaH)) / 3;
 		  averageError = (Math.abs(deltaX) + Math.abs(deltaY)) / 2;
-//            bot.telemetry.addData("Avg", averageError);
-//            pX = powerDropoff(x, d[1]);
-//            pY = powerDropoff(y, d[0]);
-//            pH = powerDropoff(heading, h);
-
-//            pX = powerDropoff(x, d[1]) * (deltaX / averageError);
-//            pY = powerDropoff(y, d[0]) * (deltaY / averageError);
-//            pH = powerDropoff(heading, h) * (deltaH / averageError);
 		  pX = (deltaX / averageError) * maxPower * powerReduction;
 		  pY = (deltaY / averageError) * maxPower * powerReduction;
 //		  pH = (deltaH / averageError) * maxPower;

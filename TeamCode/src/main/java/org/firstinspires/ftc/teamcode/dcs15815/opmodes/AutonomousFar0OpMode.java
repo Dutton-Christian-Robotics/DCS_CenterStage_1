@@ -31,7 +31,7 @@ public class AutonomousFar0OpMode extends PropDetectingOpMode {
 
 
 	   } else if (position == PropVisionProcessor.PropPosition.LEFT) {
-		  bot.drivetrain.drive(0, -0.25, 0);
+		  bot.drivetrain.drive(0, 0.25, 0);
 		  sleep(460);
 		  bot.navigation.resetAndDriveToPosition(0, -47, 0, 0.1);
 		  bot.stickyPad.releaseRight();
@@ -46,15 +46,20 @@ public class AutonomousFar0OpMode extends PropDetectingOpMode {
 
 
 	   } else if (position == PropVisionProcessor.PropPosition.RIGHT) {
-		  bot.navigation.driveToPosition(0, -32, 0, 0.1);
-		  bot.navigation.comeToRelativeHeading(90, 0.3, 1, 4000);
+		  bot.navigation.resetAndDriveToPosition(0, -30, 0, 0.1);
+		  bot.navigation.comeToRelativeHeading(-90, 0.3, 1, 4000);
+		  bot.navigation.resetAndDriveToPosition(0, -32, 0, 0.1);
 		  bot.gotoTravelArmPosition();
 		  sleep(1500);
 		  bot.stickyPad.releaseRight();
 		  sleep(2000);
+//		  bot.navigation.resetAndDriveToPosition(0, -6, 0, 0.1);
+
 
 		  // Move to center field and turn towards backstage
-		  bot.navigation.resetAndDriveToPosition(-15, 0, 0, 0.1);
+//		  bot.navigation.comeToRelativeHeading(180, 0.3, 1, 4000);
+//		  bot.navigation.resetAndDriveToPosition(0, 15, 0, 0.1);
+//		  bot.navigation.comeToRelativeHeading(-90, 0.3, 1, 4000);
 		  bot.gotoStartArmPosition();
 		  sleep(2000);
 
@@ -64,6 +69,47 @@ public class AutonomousFar0OpMode extends PropDetectingOpMode {
 
     @Override
     public void whenBlueAlliance() {
+	   if (position == PropVisionProcessor.PropPosition.MIDDLE) {
+		  bot.navigation.driveToPosition(0, -52, 0, 0.1);
+		  bot.stickyPad.releaseLeft();
+		  sleep(2000);
+
+		  // Move to center field and turn towards backstage
+		  bot.gotoTravelArmPosition();
+		  bot.navigation.resetAndDriveToPosition(0, -15, 0, 0.1);
+		  bot.navigation.comeToRelativeHeading(-90, 0.3, 1, 5000);
+		  bot.gotoStartArmPosition();
+		  sleep(2000);
+
+
+	   } else if (position == PropVisionProcessor.PropPosition.LEFT) {
+
+		  bot.navigation.resetAndDriveToPosition(0, -30, 0, 0.1);
+		  bot.navigation.comeToRelativeHeading(90, 0.3, 1, 4000);
+		  bot.navigation.resetAndDriveToPosition(0, -28, 0, 0.1);
+		  bot.gotoTravelArmPosition();
+		  sleep(1500);
+		  bot.stickyPad.releaseLeft();
+		  sleep(2000);
+		  bot.gotoStartArmPosition();
+		  sleep(2000);
+
+	   } else if (position == PropVisionProcessor.PropPosition.RIGHT) {
+		  bot.drivetrain.drive(0, -0.25, 0);
+		  sleep(460);
+		  bot.navigation.resetAndDriveToPosition(0, -47, 0, 0.1);
+		  bot.stickyPad.releaseLeft();
+		  sleep(2000);
+
+		  // Move to center field and turn towards backstage
+		  bot.gotoTravelArmPosition();
+		  bot.navigation.resetAndDriveToPosition(0, -20, 0, 0.1);
+		  bot.navigation.comeToRelativeHeading(-95, 0.3, 1, 5000);
+		  bot.gotoStartArmPosition();
+		  sleep(2000);
+
+
+	   }
 
     }
 }

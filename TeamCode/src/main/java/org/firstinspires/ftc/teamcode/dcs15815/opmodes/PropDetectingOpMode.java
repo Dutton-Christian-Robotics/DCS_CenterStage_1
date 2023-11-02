@@ -21,9 +21,9 @@ abstract public class PropDetectingOpMode extends LinearOpMode {
 	   boolean override = false;
 
 	   while (opModeInInit()) {
-		  telemetry.addData("Position", bot.vision.getDetectedPosition());
+		  telemetry.addData("Detected Position", bot.vision.getDetectedPosition());
 		  telemetry.addData("Hue", bot.vision.getDetectedHue());
-		  telemetry.addData("Alliance", bot.vision.getDetectedAlliance());
+		  telemetry.addData("Detected Alliance", bot.vision.getDetectedAlliance());
 
 		  if (!override) {
 			 position = bot.vision.getDetectedPosition();

@@ -31,11 +31,11 @@ public class SBBVision extends DefenderBotSystem {
     }
 
     public PropVisionProcessor.PropPosition getDetectedPosition() {
-	   return position;
+	   return detectionProcessor.getPosition();
     }
 
     public DefenderBot.Alliance getDetectedAlliance() {
-	   return alliance;
+	   return detectionProcessor.getAlliance();
     }
 
     public double getDetectedHue() {

@@ -94,6 +94,7 @@ public class StickyBanditBot extends DefenderBot {
 	   grabPixelSequence.run();
     }
 
+
     public void gotoHangArmPosition() {
 	   gotoArmPosition(SBBConfiguration.HANG_POSITION);
     }
@@ -109,6 +110,26 @@ public class StickyBanditBot extends DefenderBot {
 	   gotoArmPosition(SBBConfiguration.LEAVE_STACK_POSITION);
     }
 
+    public void gotoAutonomousDropArmPosition() {
+	   gotoArmPosition(SBBConfiguration.AUTONOMOUS_DROP_POSITION);
+    }
+
+    public void gotoAutonomousFrontDeliveryArmPosition() {
+	   gotoArmPosition(SBBConfiguration.AUTONOMOUS_FRONT_DELIVERY_POSITION);
+    }
+
+    public void gotoMidFrontDeliveryPosition() {
+	   gotoArmPosition(SBBConfiguration.MID_FRONT_DELIVERY_POSITION);
+    }
+
+    public void gotoHighFrontDeliveryPosition() {
+	   gotoArmPosition(SBBConfiguration.HIGH_FRONT_DELIVERY_POSITION);
+    }
+
+
+    public void gotoHighBackDeliveryPosition() {
+	   gotoArmPosition(SBBConfiguration.HIGH_BACK_DELIVERY_POSITION);
+    }
 
     public void gotoStartArmPosition() {
 	   gotoArmPosition(SBBConfiguration.START_POSITION);

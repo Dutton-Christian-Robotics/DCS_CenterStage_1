@@ -284,6 +284,11 @@ public class SBBNavigation extends DefenderBotSystem {
 	   driveToPosition(x, y);
     }
 
+    public void resetAndDriveToPosition(double x, double y, double heading, double maxPower) {
+	   resetPositionTracking();
+	   driveToPosition(x, y, heading, maxPower);
+    }
+
     public double angleWrap(double degrees) {
 	   double radians = Math.toRadians(degrees);
 	   while (radians > Math.PI) {

@@ -17,13 +17,25 @@ public class AutonomousNear0OpMode extends PropDetectingOpMode {
 
     @Override
     public void whenRedAlliance() {
-		bot.navigation.resetAndDriveToPosition(-25, -15, 0, 0.2);
+		bot.navigation.resetAndDriveToPosition(-60, -10, 0, 0.4);
 		bot.stickyPad.releaseRight();
-		sleep(2000);
+		sleep(3000);
+	   bot.stickyPad.releaseLeft();
+	   sleep(3000);
+	   bot.navigation.resetAndDriveToPosition(0, -6, 0, 0.4);
+	   bot.gotoStartArmPosition();
+
     }
 
     @Override
     public void whenBlueAlliance() {
+	   bot.navigation.resetAndDriveToPosition(60, -10, 0, 0.4);
+	   bot.stickyPad.releaseRight();
+	   sleep(3000);
+	   bot.stickyPad.releaseLeft();
+	   sleep(3000);
+	   bot.navigation.resetAndDriveToPosition(0, -6, 0, 0.4);
+	   bot.gotoStartArmPosition();
 
     }
 }

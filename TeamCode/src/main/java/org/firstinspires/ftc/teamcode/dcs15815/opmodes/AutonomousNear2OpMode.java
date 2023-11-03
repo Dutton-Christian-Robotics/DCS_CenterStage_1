@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.dcs15815.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.PropVisionProcessor.PropPosition;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
 
+@Disabled
 @Autonomous(name = "Near 2 Autonomous", group = "Near")
 public class AutonomousNear2OpMode extends PropDetectingOpMode {
 

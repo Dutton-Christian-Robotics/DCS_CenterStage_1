@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.dcs15815.opmodes_testing;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.List;
 
+@Disabled
 @TeleOp(name = "Simple Vision Test", group = "Testing")
 public class SimpleVisionTestOpMode extends LinearOpMode {
     private VisionPortal visionPortal;

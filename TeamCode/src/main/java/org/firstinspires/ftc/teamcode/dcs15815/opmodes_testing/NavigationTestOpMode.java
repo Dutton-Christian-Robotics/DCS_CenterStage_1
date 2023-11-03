@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.dcs15815.opmodes_testing;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.StickyBanditBot;
 
+@Disabled
 @TeleOp(name = "Navigation Test", group = "Testing")
 public class NavigationTestOpMode extends LinearOpMode {
     StickyBanditBot bot;

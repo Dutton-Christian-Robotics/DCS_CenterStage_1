@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
 
+@Disabled
 @TeleOp(name = "StickyPad Test", group = "Testing")
 public class StickyPadTestOpMode extends LinearOpMode
 {

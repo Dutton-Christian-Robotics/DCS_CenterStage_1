@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.dcs15815.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
 
-@Autonomous(name = "Near 0 Autonomous", group = "Near")
-public class AutonomousNear0OpMode extends PropDetectingOpMode {
+@Autonomous(name = "Near Blue 0 Autonomous", group = "Near")
+public class AutonomousNearBlue0OpMode extends PropDetectingOpMode {
 
     @Override
     public void setupRobot() {
@@ -15,11 +16,10 @@ public class AutonomousNear0OpMode extends PropDetectingOpMode {
 	   bot.gotoAutonomousDropArmPosition();
     }
 
-    @Override
-    public void whenRedAlliance() {
-		bot.navigation.resetAndDriveToPosition(-60, -10, 0, 0.4);
-		bot.stickyPad.releaseRight();
-		sleep(3000);
+    public void driving() {
+	   bot.navigation.resetAndDriveToPosition(-60, -10, 0, 0.4);
+	   bot.stickyPad.releaseRight();
+	   sleep(3000);
 	   bot.stickyPad.releaseLeft();
 	   sleep(3000);
 	   bot.navigation.resetAndDriveToPosition(0, -6, 0, 0.4);
@@ -28,14 +28,18 @@ public class AutonomousNear0OpMode extends PropDetectingOpMode {
     }
 
     @Override
-    public void whenBlueAlliance() {
-	   bot.navigation.resetAndDriveToPosition(60, -10, 0, 0.4);
-	   bot.stickyPad.releaseRight();
-	   sleep(3000);
-	   bot.stickyPad.releaseLeft();
-	   sleep(3000);
-	   bot.navigation.resetAndDriveToPosition(0, -6, 0, 0.4);
-	   bot.gotoStartArmPosition();
+    public void whenRedAlliance() {
+	   driving();
+    }
 
+    @Override
+    public void whenBlueAlliance() {
+	   driving();
+
+    }
+
+    @Override
+    public void whenNoAlliance() {
+	   driving();
     }
 }

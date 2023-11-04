@@ -47,9 +47,9 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double TILT_POWER_MAX = 0.5;
     public static int TILT_POSITION_MAX = 3080;
     public static int TILT_POSITION_UP = 2200;
-    public static int TILT_POSITION_TRAVEL = 250;
+    public static int TILT_POSITION_TRAVEL = 400;
     public static int TILT_POSITION_GROUND = 0;
-    public static int TILT_POSITION_MIN = -300;
+    public static int TILT_POSITION_MIN = -600;
     public static int TILT_POSITION_DELTA = 250;
 
     public static double TILT_MOTOR_KP = 0;
@@ -61,11 +61,11 @@ public class SBBConfiguration extends DefenderBotConfiguration {
 
     public static String WRIST_LEFT_SERVO_NAME = "wrist_left_servo";
     public static String WRIST_RIGHT_SERVO_NAME = "wrist_right_servo";
-    public static double WRIST_LEFT_SERVO_POSITION_TOP = 0.15;
-    public static double WRIST_RIGHT_SERVO_POSITION_TOP = 0.85;
+    public static double WRIST_LEFT_SERVO_POSITION_TOP = 0.225;
+    public static double WRIST_RIGHT_SERVO_POSITION_TOP = 0.9;
     public static double WRIST_LEFT_SERVO_POSITION_STRAIGHT = 0.45;
     public static double WRIST_RIGHT_SERVO_POSITION_STRAIGHT = 0.55;
-    public static double WRIST_LEFT_SERVO_POSITION_BOTTOM = 0.775;
+    public static double WRIST_LEFT_SERVO_POSITION_BOTTOM = 0.9;
     public static double WRIST_RIGHT_SERVO_POSITION_BOTTOM = 0.225;
     public static double WRIST_RIGHT_SERVO_POSITION_TRAVEL = 0.225;
     public static double WRIST_POSITION_DELTA = 0.1;
@@ -130,14 +130,19 @@ public class SBBConfiguration extends DefenderBotConfiguration {
             SBBConfiguration.TILT_POSITION_GROUND,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
+//    public static SBBArmPosition GRAB_READY_POSITION = new SBBArmPosition(
+//            1350,
+//            SBBConfiguration.TILT_POSITION_MIN,
+//            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
+
     public static SBBArmPosition GRAB_CONTACT_POSITION = new SBBArmPosition(
             SBBConfiguration.LIFT_POSITION_GROUND,
             SBBConfiguration.TILT_POSITION_MIN,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
     public static SBBArmPosition GRAB_READY_POSITION = new SBBArmPosition(
-            1350,
-            SBBConfiguration.TILT_POSITION_MIN,
+            SBBConfiguration.LIFT_POSITION_GROUND,
+            300,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
     public static SBBArmPosition AUTONOMOUS_DROP_POSITION = new SBBArmPosition(
@@ -151,8 +156,8 @@ public class SBBConfiguration extends DefenderBotConfiguration {
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TRAVEL);
 
     public static SBBArmPosition LEAVE_STACK_POSITION = new SBBArmPosition(
-            1000,
-            SBBConfiguration.TILT_POSITION_GROUND,
+            SBBConfiguration.LIFT_POSITION_GROUND,
+            300,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
     public static SBBArmPosition LOW_FRONT_DELIVERY_POSITION = new SBBArmPosition(

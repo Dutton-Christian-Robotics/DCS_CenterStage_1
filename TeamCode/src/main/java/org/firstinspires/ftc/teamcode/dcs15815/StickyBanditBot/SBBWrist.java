@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 
 public class SBBWrist extends DefenderBotSystem {
 
-    private Servo leftServo, rightServo;
+    public Servo leftServo, rightServo;
     public double position;
 
     static ExecutorService es = Executors.newSingleThreadExecutor();

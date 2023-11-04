@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
 
-@Disabled
 @TeleOp(name = "Wrist Test", group = "Testing")
 public class WristTestOpMode extends LinearOpMode
 {
@@ -29,7 +28,8 @@ public class WristTestOpMode extends LinearOpMode
 
 
 	   upDebouncer = new DefenderDebouncer(500, () -> {
-		  if ((selectedServo == 0) && (currentLeftPosition < 1)) {
+		  if (sharedPosition == -1) {
+		  } else if ((selectedServo == 0) && (currentLeftPosition < 1)) {
 			 currentLeftPosition += resolution;
 			 leftWristServo.setPosition(currentLeftPosition);
 		  } else if ((selectedServo == 1) && (currentRightPosition < 1)) {

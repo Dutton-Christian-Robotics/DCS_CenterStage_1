@@ -47,6 +47,7 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 //		  bot.lift.setRelativePosition(-1 * SBBConfiguration.LIFT_POSITION_DELTA);
 	   });
 	   gamepad2DpadLeftDebouncer = new DefenderDebouncer(500, () -> {
+		  bot.stickyPad.gotoGrabPosition();
 //		  bot.tilt.setRelativePosition(-1 * SBBConfiguration.TILT_POSITION_DELTA);
 	   });
 	   gamepad2DpadRightDebouncer = new DefenderDebouncer(500, () -> {
@@ -140,7 +141,8 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 
 		  telemetry.addData("lift", bot.lift.getPosition());
 		  telemetry.addData("tilt", bot.tilt.getPosition());
-		  telemetry.addData("wrist", bot.wrist.getPosition());
+		  telemetry.addData("wrist l", bot.wrist.leftServo.getPosition());
+		  telemetry.addData("wrist r", bot.wrist.rightServo.getPosition());
 		  telemetry.addData("stickypad", bot.stickyPad.getPosition());
 		  telemetry.update();
 

@@ -6,6 +6,8 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.Def
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotSystem;
 
 import org.firstinspires.ftc.vision.VisionPortal;
+import android.util.Size;
+
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -26,8 +28,14 @@ public class SBBVision extends DefenderBotSystem {
 	   super(hm, b);
 	   webcamName = hm.get(WebcamName.class, SBBConfiguration.CAMERA_NAME);
 	   detectionProcessor = new PropVisionProcessor();
-	   visionPortal = VisionPortal.easyCreateWithDefaults(webcamName, detectionProcessor);
+//	   visionPortal = VisionPortal.easyCreateWithDefaults(webcamName, detectionProcessor);
 
+	   visionPortal = new VisionPortal.Builder()
+			 .setCamera(webcamName)
+			 .setCameraResolution(new Size(640, 480))
+			 .addProcessors(detectionProcessor)
+			 .build();
+	   
     }
 
     public PropVisionProcessor.PropPosition getDetectedPosition() {

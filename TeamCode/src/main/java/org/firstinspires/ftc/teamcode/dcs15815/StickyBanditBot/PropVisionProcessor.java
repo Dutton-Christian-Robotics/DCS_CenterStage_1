@@ -13,9 +13,9 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 public class PropVisionProcessor implements VisionProcessor {
-    public Rect rectLeft = new Rect(0, 120, 100, 360);
-    public Rect rectMiddle = new Rect(140, 120, 360, 150);
-    public Rect rectRight = new Rect(540, 120, 100, 360);
+    public Rect rectLeft = new Rect(40, 170, 140, 140);
+    public Rect rectMiddle = new Rect(220, 150, 200, 120);
+    public Rect rectRight = new Rect(460, 170, 140, 140);
 
     PropPosition position = PropPosition.NONE;
     DefenderBot.Alliance alliance = DefenderBot.Alliance.NONE;

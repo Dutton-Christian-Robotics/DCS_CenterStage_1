@@ -101,7 +101,9 @@ public class SBBNavigation extends DefenderBotSystem {
 		  if (difference < 0) {
 			 power *= -1;
 		  }
-		  bot.telemetry.addData("Target", angle);
+		  bot.telemetry.addData("Start", startingAngle);
+		  bot.telemetry.addData("Angle", angle);
+		  bot.telemetry.addData("Target", targetAngle);
 		  bot.telemetry.addData("Current", currentAngle);
 		  bot.telemetry.addData("Difference", difference);
 		  bot.telemetry.addData("Power", power);

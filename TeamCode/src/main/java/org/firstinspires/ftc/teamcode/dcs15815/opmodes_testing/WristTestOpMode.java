@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderDebouncer;
 
+@Disabled
 @TeleOp(name = "Wrist Test", group = "Testing")
 public class WristTestOpMode extends LinearOpMode
 {

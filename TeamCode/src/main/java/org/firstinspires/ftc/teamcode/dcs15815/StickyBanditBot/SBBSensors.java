@@ -41,7 +41,7 @@ public class SBBSensors extends DefenderBotSystem {
     public double currentHeading() {
 	   Orientation myRobotOrientation;
 	   myRobotOrientation = imu.getRobotOrientation(
-			 AxesReference.INTRINSIC,
+			 AxesReference.EXTRINSIC,
 			 AxesOrder.XYZ,
 			 AngleUnit.DEGREES
 	   );

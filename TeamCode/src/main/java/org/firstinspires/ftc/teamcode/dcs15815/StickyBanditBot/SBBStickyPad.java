@@ -16,7 +16,7 @@ public class SBBStickyPad extends DefenderBotSystem {
     private Servo leftServo, rightServo;
     public double position;
 
-	public DefenderDelayedSequence rightReleaseSequence, leftReleaseSequence;
+	public DefenderDelayedSequence rightReleaseSequence, leftReleaseSequence, bothReleaseSequence;
 
     public SBBStickyPad(HardwareMap hm, DefenderBot b) {
 	   super(hm, b);
@@ -33,6 +33,18 @@ public class SBBStickyPad extends DefenderBotSystem {
 		  () -> { rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE); },
 		  () -> { rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB); },
 		  2000
+	   );
+
+	   bothReleaseSequence = new DefenderDelayedSequence(
+			 () -> {
+				leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE);
+				rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_RELEASE);
+			 },
+			 () -> {
+				leftServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB);
+				rightServo.setPosition(SBBConfiguration.STICKYPAD_POSITION_GRAB);
+			 },
+			 2000
 	   );
 
     }
@@ -62,6 +74,10 @@ public class SBBStickyPad extends DefenderBotSystem {
 
     public void releaseRight() {
 	   rightReleaseSequence.run();
+    }
+
+    public void releaseBoth() {
+	   bothReleaseSequence.run();
     }
 
     public double getPosition() {

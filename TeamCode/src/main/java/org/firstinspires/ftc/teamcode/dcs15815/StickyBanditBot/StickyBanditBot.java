@@ -9,9 +9,6 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtiliti
 
 public class StickyBanditBot extends DefenderBot {
 
-//    public SBBVision vision;
-//    public SBBSensors sensors;
-//    public SBBNavigation navigation;
     public SBBMecanumDrivetrain drivetrain;
     public SBBNavigation navigation;
     public SBBSensors sensors;
@@ -21,6 +18,7 @@ public class StickyBanditBot extends DefenderBot {
     public SBBTilt tilt;
     public SBBWrist wrist;
     public SBBStickyPad stickyPad;
+    public SBBDroneLauncher droneLauncher;
 
     public DefenderPresets<SBBArmPosition> armPresets;
     public DefenderDelayedSequence grabPixelSequence;
@@ -42,6 +40,7 @@ public class StickyBanditBot extends DefenderBot {
 	   wrist = addSystem(SBBWrist.class);
 	   stickyPad = addSystem(SBBStickyPad.class);
 	   leds = addSystem(SBBEffectsLeds.class);
+//	   droneLauncher = addSystem(SBBDroneLauncher.class);
 
 	   armPresets = SBBConfiguration.ARM_PRESETS;
 
@@ -55,15 +54,6 @@ public class StickyBanditBot extends DefenderBot {
 		  },
 		  1000
 	   );
-
-
-	   //	   sensors = addSystem(SBBSensors.class);
-//	   navigation = addSystem(SBBNavigation.class);
-//	   navigation = new ProductionBotNavigation(hm, configuration, this);
-//	   navigation.linkDrivetrain(drivetrain);
-//	   vision = addSystem(SBBVision.class); // is something happening here in vision that is causing invisible crashes?
-
-
 
     }
 

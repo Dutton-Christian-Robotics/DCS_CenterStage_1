@@ -15,9 +15,11 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
     private DefenderDebouncer gamepad2DpadUpDebouncer, gamepad2DpadDownDebouncer, gamepad2DpadLeftDebouncer, gamepad2DpadRightDebouncer;
     private DefenderDebouncer gamepad2ADebouncer, gamepad2BDebouncer, gamepad2XDebouncer, gamepad2YDebouncer;
     private DefenderDebouncer gamepad2LeftBumperDebouncer, gamepad2RightBumperDebouncer;
+    private DefenderDebouncer startDebouncer, releaseBothDebouncer;
     private DefenderAnalogModifier gamepad2RightStickModifier, gamepad1LeftStickYModifier, gamepad1RightStickXModifier;
 
     public boolean isReadyToHang = false;
+//    public boolean releaseBoth = true;
 
      @Override
     public void runOpMode() {
@@ -77,11 +79,28 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 		  bot.wrist.setRelativePosition(SBBConfiguration.WRIST_POSITION_DELTA);
 	   });
 	   gamepad2LeftBumperDebouncer = new DefenderDebouncer(500, () -> {
-		  bot.stickyPad.releaseLeft();
+//		  if (releaseBoth) {
+//			 bot.stickyPad.releaseBoth();
+//		  } else {
+			 bot.stickyPad.releaseLeft();
+//		  }
 	   });
 	   gamepad2RightBumperDebouncer = new DefenderDebouncer(500, () -> {
-		  bot.stickyPad.releaseRight();
+//		  if (releaseBoth) {
+//			 bot.stickyPad.releaseBoth();
+//		  } else {
+			 bot.stickyPad.releaseRight();
+//		  }
 	   });
+
+	    releaseBothDebouncer = new DefenderDebouncer(1500, () -> {
+		  bot.stickyPad.releaseBoth();
+	    });
+
+//	    startDebouncer = new DefenderDebouncer(500, () -> {
+//		  releaseBoth = !releaseBoth;
+//	    });
+
 
 	    bot.stickyPad.gotoGrabPosition();
 	    bot.wrist.setPosition(SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
@@ -118,6 +137,15 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 		  } else if (gamepad2.dpad_down) {
 			 gamepad2DpadDownDebouncer.run();
 		  }
+
+//		  if (gamepad2.start) {
+//			 startDebouncer.run();
+//		  }
+
+		  if (gamepad2.right_trigger > 0) {
+			 releaseBothDebouncer.run();
+		  }
+
 		  if (gamepad2.a) {
 			 gamepad2ADebouncer.run();
 		  }

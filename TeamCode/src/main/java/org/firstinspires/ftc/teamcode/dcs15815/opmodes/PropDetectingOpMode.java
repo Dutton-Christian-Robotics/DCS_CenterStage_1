@@ -8,43 +8,44 @@ import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.StickyBanditBot;
 
 abstract public class PropDetectingOpMode extends LinearOpMode {
-    public StickyBanditBot bot;
+    public StickyBanditBot bot = new StickyBanditBot(hardwareMap, SBBConfiguration.class, telemetry);
     public PropVisionProcessor.PropPosition position;
 
 
     public void initRobot() {
-	   bot = new StickyBanditBot(hardwareMap, SBBConfiguration.class, telemetry);
 	   bot.opMode = this;
     }
 
     public void detectPropUntilStart() {
-	   boolean override = false;
+	   boolean overridePosition = false;
+	   boolean detectAlliance = bot.alliance == DefenderBot.Alliance.NONE;
 
 	   while (opModeInInit()) {
 		  telemetry.addData("Detected Position", bot.vision.getDetectedPosition());
 		  telemetry.addData("Hue", bot.vision.getDetectedHue());
 		  telemetry.addData("Detected Alliance", bot.vision.getDetectedAlliance());
 
-		  if (!override) {
+		  if (!overridePosition) {
 			 position = bot.vision.getDetectedPosition();
 			 bot.alliance = bot.vision.getDetectedAlliance();
 		  } else if (gamepad1.dpad_left) {
-			 override = true;
+			 overridePosition = true;
 			 position = PropVisionProcessor.PropPosition.LEFT;
-			 bot.alliance = DefenderBot.Alliance.RED;
 			 telemetry.addData("Override", "ACTIVE");
 		  } else if (gamepad1.dpad_right) {
-			 override = true;
+			 overridePosition = true;
 			 position = PropVisionProcessor.PropPosition.RIGHT;
-			 bot.alliance = DefenderBot.Alliance.RED;
 			 telemetry.addData("Override", "ACTIVE");
 		  } else if (gamepad1.dpad_up) {
-			 override = true;
+			 overridePosition = true;
 			 position = PropVisionProcessor.PropPosition.MIDDLE;
-			 bot.alliance = DefenderBot.Alliance.RED;
 			 telemetry.addData("Override", "ACTIVE");
 		  } else if (gamepad1.dpad_down) {
-			 override = false;
+			 overridePosition = false;
+		  }
+
+		  if (detectAlliance) {
+			 bot.alliance = bot.vision.getDetectedAlliance();
 		  }
 
 		  telemetry.update();
@@ -56,6 +57,9 @@ abstract public class PropDetectingOpMode extends LinearOpMode {
 
 
     public void setupRobot() {
+	   bot.stickyPad.gotoGrabPosition();
+	   bot.wrist.setPosition(SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
+	   bot.gotoAutonomousDropArmPosition();
     }
 
     @Override
@@ -75,9 +79,13 @@ abstract public class PropDetectingOpMode extends LinearOpMode {
     }
 
 
-    public abstract void whenRedAlliance();
+    public void whenRedAlliance() {
 
-    public abstract void whenBlueAlliance();
+    }
+
+    public void whenBlueAlliance() {
+
+    }
 
     public void whenNoAlliance() {
 

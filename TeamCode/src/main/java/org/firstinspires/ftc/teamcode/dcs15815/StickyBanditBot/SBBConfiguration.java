@@ -119,6 +119,12 @@ public class SBBConfiguration extends DefenderBotConfiguration {
 //    public static Pose2d NAVIGATION_START_BLUE_LEFT = new Pose2d(65, -36, 0);
 //    public static Pose2d NAVIGATION_START_BLUE_RIGHT = new Pose2d(65, 36, 0);
 
+    /* DRONE LAUNCHER -------------------------------------------------------- */
+
+    public static String DRONELAUNCHER_SERVO_NAME = "dronelauncher_servo";
+    public static double DRONELAUNCHER_POSITION_HOLD = 1;
+    public static double DRONELAUNCHER_POSITION_RELEASE = 0;
+
     /* VISION -------------------------------------------------------- */
 
 

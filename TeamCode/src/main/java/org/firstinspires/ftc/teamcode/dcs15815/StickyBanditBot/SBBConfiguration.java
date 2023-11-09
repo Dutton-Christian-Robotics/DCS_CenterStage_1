@@ -194,7 +194,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
             2037,
             0.85);
     public static SBBArmPosition HANG_POSITION = new SBBArmPosition(
-            1998,
+            2600,
             1523,
             .225);
     public static SBBArmPosition HANGING_POSITION = new SBBArmPosition(

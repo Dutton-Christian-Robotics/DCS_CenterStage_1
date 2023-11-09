@@ -104,9 +104,11 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double NAVIGATION_TOLERANCE_X = 1.0;
     public static double NAVIGATION_TOLERANCE_Y = 1.0;
     public static double NAVIGATION_GEAR_RATIO = 1;
-    public static long NAVIGATION_TICKS_PER_ROTATION = 280;
-    public static double NAVIGATION_WHEEL_RADIUS = 2;
-    public static double NAVIGATION_INCHES_PER_TICK = (2 * Math.PI * NAVIGATION_GEAR_RATIO * NAVIGATION_WHEEL_RADIUS) / NAVIGATION_TICKS_PER_ROTATION;;
+    public static long NAVIGATION_TICKS_PER_ROTATION = 292; // actually 292.04, geared at 3:1 (actually 2.89:1) and 4:1 (3.61)
+//    public static long NAVIGATION_TICKS_PER_ROTATION = 280;
+    public static double NAVIGATION_WHEEL_RADIUS = 1.88976;
+//    public static double NAVIGATION_WHEEL_RADIUS = 2;
+    public static double NAVIGATION_INCHES_PER_TICK = (2 * Math.PI * NAVIGATION_GEAR_RATIO * NAVIGATION_WHEEL_RADIUS) / NAVIGATION_TICKS_PER_ROTATION;
     public static double NAVIGATION_ROTATION_KP = 0.05;
     public static double NAVIGATION_ROTATION_KI = 0;
     public static double NAVIGATION_ROTATION_KD = 0;

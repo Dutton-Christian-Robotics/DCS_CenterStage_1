@@ -1,14 +1,15 @@
-package org.firstinspires.ftc.teamcode.dcs15815.opmodes;
+package org.firstinspires.ftc.teamcode.dcs15815.opmodes_disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.PropVisionProcessor;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
+import org.firstinspires.ftc.teamcode.dcs15815.opmodes.PropDetectingOpMode;
 
+@Disabled
 @Autonomous(name = "Far Red 1 Delay Autonomous", group = "Far")
-public class AutonomousFarRed1DelayOpMode extends PropDetectingOpMode {
+public class KentwoodAutonomousFarRed1DelayOpMode extends PropDetectingOpMode {
 
     public void setupRobot() {
 	   bot.stickyPad.gotoGrabPosition();

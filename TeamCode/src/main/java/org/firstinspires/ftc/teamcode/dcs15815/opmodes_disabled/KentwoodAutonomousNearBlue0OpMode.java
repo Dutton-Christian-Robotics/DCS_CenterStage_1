@@ -1,13 +1,14 @@
-package org.firstinspires.ftc.teamcode.dcs15815.opmodes;
+package org.firstinspires.ftc.teamcode.dcs15815.opmodes_disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
+import org.firstinspires.ftc.teamcode.dcs15815.opmodes.PropDetectingOpMode;
 
-@Autonomous(name = "Near Red0 Autonomous", group = "Near")
-public class AutonomousNearRed0OpMode extends PropDetectingOpMode {
+@Disabled
+@Autonomous(name = "Near Blue 0 Autonomous", group = "Near")
+public class KentwoodAutonomousNearBlue0OpMode extends PropDetectingOpMode {
 
     @Override
     public void setupRobot() {
@@ -38,6 +39,7 @@ public class AutonomousNearRed0OpMode extends PropDetectingOpMode {
 
     }
 
+    @Override
     public void whenNoAlliance() {
 	   driving();
     }

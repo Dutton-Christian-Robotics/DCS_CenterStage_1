@@ -3,13 +3,12 @@ package org.firstinspires.ftc.teamcode.dcs15815.opmodes_disabled;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
 import org.firstinspires.ftc.teamcode.dcs15815.opmodes.PropDetectingOpMode;
 
 @Disabled
 @Autonomous(name = "Near 0 Autonomous", group = "Near")
-public class AutonomousNear0OpMode extends PropDetectingOpMode {
+public class KentwoodAutonomousNear0OpMode extends PropDetectingOpMode {
 
     @Override
     public void setupRobot() {

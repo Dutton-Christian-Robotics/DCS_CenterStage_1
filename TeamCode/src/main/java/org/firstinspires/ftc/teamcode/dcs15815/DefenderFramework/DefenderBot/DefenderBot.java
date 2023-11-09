@@ -21,7 +21,7 @@ public class DefenderBot {
     public ArrayList<DefenderBotSystem> systems = new ArrayList<DefenderBotSystem>();
     public Telemetry telemetry;
 
-    public Alliance alliance;
+    public Alliance alliance = Alliance.NONE;
     public LinearOpMode opMode;
 
 

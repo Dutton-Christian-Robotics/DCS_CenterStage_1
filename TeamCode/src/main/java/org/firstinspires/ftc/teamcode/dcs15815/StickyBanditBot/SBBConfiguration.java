@@ -50,7 +50,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static int TILT_POSITION_TRAVEL = 400;
     public static int TILT_POSITION_GROUND = 0;
     public static int TILT_POSITION_MIN = -600;
-    public static int TILT_POSITION_DELTA = 250;
+    public static int TILT_POSITION_DELTA = 125;
 
     public static double TILT_MOTOR_KP = 0;
     public static double TILT_MOTOR_KI = 0;

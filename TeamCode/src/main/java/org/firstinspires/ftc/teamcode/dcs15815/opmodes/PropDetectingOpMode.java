@@ -8,26 +8,26 @@ import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.StickyBanditBot;
 
 abstract public class PropDetectingOpMode extends LinearOpMode {
-    public StickyBanditBot bot = new StickyBanditBot(hardwareMap, SBBConfiguration.class, telemetry);
+    public StickyBanditBot bot;
     public PropVisionProcessor.PropPosition position;
 
 
     public void initRobot() {
+	   bot = new StickyBanditBot(hardwareMap, SBBConfiguration.class, telemetry);
 	   bot.opMode = this;
     }
 
     public void detectPropUntilStart() {
 	   boolean overridePosition = false;
 	   boolean detectAlliance = bot.alliance == DefenderBot.Alliance.NONE;
+//	   boolean detectAlliance = false;
 
 	   while (opModeInInit()) {
 		  telemetry.addData("Detected Position", bot.vision.getDetectedPosition());
 		  telemetry.addData("Hue", bot.vision.getDetectedHue());
-		  telemetry.addData("Detected Alliance", bot.vision.getDetectedAlliance());
 
 		  if (!overridePosition) {
 			 position = bot.vision.getDetectedPosition();
-			 bot.alliance = bot.vision.getDetectedAlliance();
 		  } else if (gamepad1.dpad_left) {
 			 overridePosition = true;
 			 position = PropVisionProcessor.PropPosition.LEFT;
@@ -46,11 +46,16 @@ abstract public class PropDetectingOpMode extends LinearOpMode {
 
 		  if (detectAlliance) {
 			 bot.alliance = bot.vision.getDetectedAlliance();
+			 telemetry.addData("Detected Alliance", bot.vision.getDetectedAlliance());
+
+		  } else {
+			 telemetry.addData("Alliance", bot.alliance);
+
 		  }
 
 		  telemetry.update();
 
-		  bot.leds.setAllianceColors();
+//		  bot.leds.setAllianceColors();
 	   }
 	   bot.vision.stopStreaming();
     }

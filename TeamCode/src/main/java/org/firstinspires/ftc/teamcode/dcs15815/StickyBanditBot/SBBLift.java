@@ -10,15 +10,15 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtiliti
 public class SBBLift extends DefenderBotSystem {
 
     public DcMotorEx leftMotor, rightMotor;
-    private DefenderPIDController pidController;
+//    private DefenderPIDController pidController;
 
     public SBBLift(HardwareMap hm, DefenderBot b) {
 	   super(hm, b);
-	   pidController = new DefenderPIDController(
-			 SBBConfiguration.LIFT_MOTOR_KP,
-			 SBBConfiguration.LIFT_MOTOR_KI,
-			 SBBConfiguration.LIFT_MOTOR_KD
-	   );
+//	   pidController = new DefenderPIDController(
+//			 SBBConfiguration.LIFT_MOTOR_KP,
+//			 SBBConfiguration.LIFT_MOTOR_KI,
+//			 SBBConfiguration.LIFT_MOTOR_KD
+//	   );
 
 	   leftMotor = hm.get(DcMotorEx.class, SBBConfiguration.LIFT_LEFT_MOTOR_NAME);
 	   rightMotor = hm.get(DcMotorEx.class, SBBConfiguration.LIFT_RIGHT_MOTOR_NAME);

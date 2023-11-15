@@ -18,7 +18,7 @@ public class ImuTestOpMode extends LinearOpMode {
 	   waitForStart();
 	   while (opModeIsActive()) {
 		  telemetry.addData("Heading", bot.sensors.currentHeading());
-		  telemetry.addData("Integrated", bot.sensors.getIntegratedHeading());
+		  telemetry.addData("Integrated", bot.sensors.currentHeading());
 		  telemetry.update();
 	   }
     }

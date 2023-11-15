@@ -67,7 +67,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double WRIST_RIGHT_SERVO_POSITION_STRAIGHT = 0.55;
     public static double WRIST_LEFT_SERVO_POSITION_BOTTOM = 0.9;
     public static double WRIST_RIGHT_SERVO_POSITION_BOTTOM = 0.225;
-    public static double WRIST_RIGHT_SERVO_POSITION_TRAVEL = 0.225;
+    public static double WRIST_RIGHT_SERVO_POSITION_TRAVEL = 0.24;
     public static double WRIST_POSITION_DELTA = 0.1;
 
 
@@ -122,8 +122,8 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     /* DRONE LAUNCHER -------------------------------------------------------- */
 
     public static String DRONELAUNCHER_SERVO_NAME = "dronelauncher_servo";
-    public static double DRONELAUNCHER_POSITION_HOLD = 1;
-    public static double DRONELAUNCHER_POSITION_RELEASE = 0;
+    public static double DRONELAUNCHER_POSITION_HOLD = 0.5;
+    public static double DRONELAUNCHER_POSITION_RELEASE = 0.75;
 
     /* VISION -------------------------------------------------------- */
 
@@ -136,7 +136,7 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static SBBArmPosition START_POSITION = new SBBArmPosition(
             SBBConfiguration.LIFT_POSITION_GROUND,
             SBBConfiguration.TILT_POSITION_GROUND,
-            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
+            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TRAVEL);
 
 //    public static SBBArmPosition GRAB_READY_POSITION = new SBBArmPosition(
 //            1350,

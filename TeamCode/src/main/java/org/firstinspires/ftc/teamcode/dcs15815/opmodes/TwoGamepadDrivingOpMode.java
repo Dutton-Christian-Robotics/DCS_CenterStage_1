@@ -12,11 +12,14 @@ import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.StickyBanditBot;
 public class TwoGamepadDrivingOpMode extends LinearOpMode
 {
     StickyBanditBot bot;
+    private DefenderDebouncer gamepad1StartDebouncer, gamepad1XDebouncer, gamepad1YDebouncer;
     private DefenderDebouncer gamepad2DpadUpDebouncer, gamepad2DpadDownDebouncer, gamepad2DpadLeftDebouncer, gamepad2DpadRightDebouncer;
     private DefenderDebouncer gamepad2ADebouncer, gamepad2BDebouncer, gamepad2XDebouncer, gamepad2YDebouncer;
     private DefenderDebouncer gamepad2LeftBumperDebouncer, gamepad2RightBumperDebouncer;
     private DefenderDebouncer startDebouncer, releaseBothDebouncer;
     private DefenderAnalogModifier gamepad2RightStickModifier, gamepad1LeftStickYModifier, gamepad1RightStickXModifier;
+
+    private boolean readyToLaunchDrone = false;
 
     public boolean isReadyToHang = false;
 //    public boolean releaseBoth = true;
@@ -39,7 +42,22 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 //			 SBBConfiguration.GAMEPAD2_RIGHT_STICK_MAX
 //	   );
 
-	   gamepad2DpadUpDebouncer = new DefenderDebouncer(500, () -> {
+	    gamepad1StartDebouncer = new DefenderDebouncer(500, () -> {
+		   readyToLaunchDrone = !readyToLaunchDrone;
+	    });
+
+	    gamepad1XDebouncer = new DefenderDebouncer(500, () -> {
+		   if (readyToLaunchDrone) {
+			  bot.droneLauncher.launchDrone();
+		   }
+	    });
+	    gamepad1YDebouncer = new DefenderDebouncer(500, () -> {
+		   readyToLaunchDrone = false;
+		   bot.droneLauncher.gotoHoldPosition();
+	    });
+
+
+	    gamepad2DpadUpDebouncer = new DefenderDebouncer(500, () -> {
 		  bot.gotoNextArmPosition();
 
 //		  bot.lift.setRelativePosition(SBBConfiguration.LIFT_POSITION_DELTA);
@@ -165,13 +183,27 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 			 gamepad2RightBumperDebouncer.run();
 		  }
 
+		  if (gamepad1.start) {
+			 gamepad1StartDebouncer.run();
+		  }
+		  if (gamepad1.x) {
+			 gamepad1XDebouncer.run();
+		  }
+		  if (gamepad1.y) {
+			 gamepad1YDebouncer.run();
+		  }
 
 
-		  telemetry.addData("lift", bot.lift.getPosition());
-		  telemetry.addData("tilt", bot.tilt.getPosition());
-		  telemetry.addData("wrist l", bot.wrist.leftServo.getPosition());
-		  telemetry.addData("wrist r", bot.wrist.rightServo.getPosition());
-		  telemetry.addData("stickypad", bot.stickyPad.getPosition());
+		  if (!readyToLaunchDrone) {
+			 telemetry.addData("Drone", "safety on");
+		  } else {
+			 telemetry.addData("Drone", "READY TO LAUNCH!!!!");
+		  }
+		  telemetry.addData("Lift", bot.lift.getPosition());
+		  telemetry.addData("Tilt", bot.tilt.getPosition());
+		  telemetry.addData("Wrist L", bot.wrist.leftServo.getPosition());
+		  telemetry.addData("Wrist R", bot.wrist.rightServo.getPosition());
+		  telemetry.addData("Stickypad", bot.stickyPad.getPosition());
 		  telemetry.update();
 
 	   }

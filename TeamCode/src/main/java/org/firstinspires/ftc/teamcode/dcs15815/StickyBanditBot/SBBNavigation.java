@@ -2,12 +2,14 @@ package org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.robotcore.external.matrices.GeneralMatrixF;
 import org.firstinspires.ftc.robotcore.external.matrices.MatrixF;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBot;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotPosition;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.DefenderBotSystem;
 import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderPIDController;
+//import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderUtilities.DefenderPIDController;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -19,12 +21,16 @@ public class SBBNavigation extends DefenderBotSystem {
     private int backRightOffset;
     private int backLeftOffset;
 
+    private double rotation;
+
     private MatrixF conversion;
 
     private DcMotor backLeft, frontLeft, frontRight, backRight;
 
     private SBBSensors sensors;
     private SBBMecanumDrivetrain drivetrain;
+
+    private DefenderPIDController pidRotate;
 
     public SBBNavigation(HardwareMap hm, DefenderBot b) {
 	   super(hm, b);
@@ -35,12 +41,14 @@ public class SBBNavigation extends DefenderBotSystem {
 	   conversion = new GeneralMatrixF(3, 3, data);
 	   conversion = conversion.inverted();
 
+	   pidRotate = new DefenderPIDController(.003, .00003, 0);
 
-	   sensors = (SBBSensors)((StickyBanditBot)bot).sensors;
+
+	   sensors = (SBBSensors) ((StickyBanditBot) bot).sensors;
 
     }
 
-//    public void linkSensors(SBBSensors s) {
+    //    public void linkSensors(SBBSensors s) {
 //	   sensors = s;
 //    }
     public void linkDrivetrain(SBBMecanumDrivetrain dt) {
@@ -67,112 +75,6 @@ public class SBBNavigation extends DefenderBotSystem {
 	   return (x > min) && (x < max);
     }
 
-    public void comeToRelativeHeading(double angle, double maxPower, double tolerance, double timeout) {
-	   double startingAngle = Math.floor(sensors.currentHeading());
-	   angle = startingAngle + angle;
-
-	   double difference, absDifference, currentAngle;
-	   boolean keepTurning = true;
-	   ElapsedTime timer = new ElapsedTime();
-	   long sleepLength = 10;
-	   double powerCutoffThreshold = 0.01;
-	   double targetAngle = angleWrap(angle);
-
-	   angle = targetAngle;
-
-	   double power;
-	   do {
-		  currentAngle = Math.floor(sensors.currentHeading());
-		  difference = currentAngle - angle;
-		  absDifference = Math.abs(difference);
-		  if ((absDifference < tolerance) || (timer.milliseconds() >= timeout)) {
-			 keepTurning = false;
-			 power = 0;
-		  } else if (absDifference > 90) {
-			 power = 1;
-		  } else if (absDifference > 30) {
-			 power = 0.5;
-		  } else {
-//		  } else if (absDifference > 10) {
-			 power = 0.25;
-//		  } else {
-//			 power = 0.1;
-		  }
-		  if (difference < 0) {
-			 power *= -1;
-		  }
-		  bot.telemetry.addData("Start", startingAngle);
-		  bot.telemetry.addData("Angle", angle);
-		  bot.telemetry.addData("Target", targetAngle);
-		  bot.telemetry.addData("Current", currentAngle);
-		  bot.telemetry.addData("Difference", difference);
-		  bot.telemetry.addData("Power", power);
-		  bot.telemetry.addData("Set Power", power * maxPower);
-		  bot.telemetry.update();
-
-
-		  drivetrain.drive(0, 0, power * maxPower);
-		  sleep(sleepLength);
-
-	   } while (keepTurning && !bot.opMode.isStopRequested());
-
-    }
-
-    public void comeToHeading(double angle, double maxPower, double tolerance, double timeout) {
-	   double startingAngle = Math.floor(sensors.currentHeading());
-
-	   double difference, absDifference, currentAngle;
-	   boolean keepTurning = true;
-	   ElapsedTime timer = new ElapsedTime();
-	   long sleepLength = 10;
-	   double powerCutoffThreshold = 0.01;
-	   double targetAngle = angleWrap(angle);
-
-	   angle = targetAngle;
-
-	   double power;
-	   do {
-		  currentAngle = Math.floor(sensors.currentHeading());
-		  difference = currentAngle - angle;
-		  absDifference = Math.abs(difference);
-		  if ((absDifference < tolerance) || (timer.milliseconds() >= timeout)) {
-			 keepTurning = false;
-			 power = 0;
-		  } else if (absDifference > 90) {
-			 power = 1;
-		  } else if (absDifference > 30) {
-			 power = 0.5;
-		  } else {
-//		  } else if (absDifference > 10) {
-			 power = 0.25;
-//		  } else {
-//			 power = 0.1;
-		  }
-		  if (difference < 0) {
-			 power *= -1;
-		  }
-		  bot.telemetry.addData("Target", angle);
-		  bot.telemetry.addData("Current", currentAngle);
-		  bot.telemetry.addData("Difference", difference);
-		  bot.telemetry.addData("Power", power);
-		  bot.telemetry.addData("Set Power", power * maxPower);
-		  bot.telemetry.update();
-
-
-		  drivetrain.drive(0, 0, power * maxPower);
-		  sleep(sleepLength);
-
-	   } while (keepTurning && !bot.opMode.isStopRequested());
-
-    }
-
-    public void comeToHeading(double angle, double powerRatio) {
-	   comeToHeading(angle, powerRatio * SBBConfiguration.NAVIGATION_POWER_DEFAULT, SBBConfiguration.NAVIGATION_TOLERANCE_ROTATION, SBBConfiguration.NAVIGATION_TIMEOUT_DEFAULT);
-    }
-
-    public void comeToHeading(double angle) {
-	   comeToHeading(angle, SBBConfiguration.NAVIGATION_POWER_DEFAULT, SBBConfiguration.NAVIGATION_TOLERANCE_ROTATION, SBBConfiguration.NAVIGATION_TIMEOUT_DEFAULT);
-    }
 
     public double[] getDistanceInches() {
 	   double[] distances = {0.0, 0.0};
@@ -206,7 +108,7 @@ public class SBBNavigation extends DefenderBotSystem {
 	   double[] d = {0, 0, 0};
 	   double deltaY, deltaX, deltaH;
 	   double pX, pY, pH;
-	   double h = sensors.getIntegratedHeading();
+	   double h = sensors.getAngle();
 	   double rotation = 0;
 	   double averageError = 0;
 	   double powerReduction = 1;
@@ -229,7 +131,6 @@ public class SBBNavigation extends DefenderBotSystem {
 		  }
 
 
-
 //		  averageError = (Math.abs(deltaX) + Math.abs(deltaY) + Math.abs(deltaH)) / 3;
 		  averageError = (Math.abs(deltaX) + Math.abs(deltaY)) / 2;
 		  pX = (deltaX / averageError) * maxPower * powerReduction;
@@ -249,7 +150,7 @@ public class SBBNavigation extends DefenderBotSystem {
 //            bot.drive(powerDropoff(y, d[0]), powerDropoff(x, d[1]), 0);
 		  drivetrain.drive(pY, pX, pH);
 		  d = getDistanceInches();
-		  h = sensors.getIntegratedHeading();
+		  h = sensors.getAngle();
 //	   } while ((Math.abs(y - d[0]) > SBBConfiguration.NAVIGATION_TOLERANCE_Y) || (Math.abs(x - d[1]) > SBBConfiguration.NAVIGATION_TOLERANCE_X) || (Math.abs(heading - h) > SBBConfiguration.NAVIGATION_TOLERANCE_ROTATION)) {
 	   } while ((totalPower > 0.05) && (totalDistance > SBBConfiguration.NAVIGATION_TOLERANCE_Y) && !bot.opMode.isStopRequested());
 	   bot.stopDriving();
@@ -302,5 +203,69 @@ public class SBBNavigation extends DefenderBotSystem {
 	   return Math.toDegrees(radians);
     }
 
+    public void comeToRelativeHeading(double degrees, double power, double tolerance, double timeout) {
+	   // restart imu angle tracking.
+	   sensors.resetAngle();
 
+	   // if degrees > 359 we cap at 359 with same sign as original degrees.
+	   if (Math.abs(degrees) > 359) degrees = (int) Math.copySign(359, degrees);
+
+	   // start pid controller. PID controller will monitor the turn angle with respect to the
+	   // target angle and reduce power as we approach the target angle. This is to prevent the
+	   // robots momentum from overshooting the turn after we turn off the power. The PID controller
+	   // reports onTarget() = true when the difference between turn angle and target angle is within
+	   // 1% of target (tolerance) which is about 1 degree. This helps prevent overshoot. Overshoot is
+	   // dependant on the motor and gearing configuration, starting power, weight of the robot and the
+	   // on target tolerance. If the controller overshoots, it will reverse the sign of the output
+	   // turning the robot back toward the setpoint value.
+
+	   pidRotate.reset();
+	   pidRotate.setSetpoint(degrees);
+	   pidRotate.setInputRange(0, degrees);
+	   pidRotate.setOutputRange(0, power);
+	   pidRotate.setTolerance(1);
+	   pidRotate.enable();
+
+	   // getAngle() returns + when rotating counter clockwise (left) and - when rotating
+	   // clockwise (right).
+
+	   // rotate until turn is completed.
+
+	   if (degrees < 0) {
+		  // On right turn we have to get off zero first.
+		  while (bot.opMode.opModeIsActive() && sensors.getAngle() == 0) {
+			 drivetrain.drive(0, 0, power);
+//			 leftMotor.setPower(power);
+//			 rightMotor.setPower(-power);
+			 sleep(100);
+		  }
+
+		  do {
+			 power = pidRotate.performPID(sensors.getAngle()); // power will be - on right turn.
+			 drivetrain.drive(0, 0, -power);
+//			 leftMotor.setPower(-power);
+//			 rightMotor.setPower(power);
+		  } while (bot.opMode.opModeIsActive() && !pidRotate.onTarget());
+	   } else    // left turn.
+		  do {
+			 power = pidRotate.performPID(sensors.getAngle()); // power will be + on left turn.
+			 drivetrain.drive(0, 0, -power);
+
+//			 leftMotor.setPower(-power);
+//			 rightMotor.setPower(power);
+		  } while (bot.opMode.opModeIsActive() && !pidRotate.onTarget());
+
+	   // turn the motors off.
+	   drivetrain.stopDriving();
+//	   rightMotor.setPower(0);
+//	   leftMotor.setPower(0);
+
+	   rotation = sensors.getAngle();
+
+	   // wait for rotation to stop.
+	   sleep(500);
+
+	   // reset angle tracking on new heading.
+	   sensors.resetAngle();
+    }
 }

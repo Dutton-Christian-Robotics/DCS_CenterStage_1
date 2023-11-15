@@ -19,10 +19,9 @@ public class SBBSensors extends DefenderBotSystem {
 
 //    private BNO055IMU imu;
     private IMU imu;
-    private double lastAngle = 0;
-    private double previousHeading = 0;
-    private double integratedHeading = 0;
+    private double globalAngle;
 
+    Orientation lastAngles = new Orientation();
 
     public SBBSensors(HardwareMap hm, DefenderBot b) {
 	   super(hm, b);
@@ -36,42 +35,42 @@ public class SBBSensors extends DefenderBotSystem {
 				    )
 			 )
 	   );
+
     }
 
-    public double currentHeading() {
-	   Orientation myRobotOrientation;
-	   myRobotOrientation = imu.getRobotOrientation(
+public double currentHeading() {
+	   return getAngle();
+}
+    public double getAngle()
+    {
+	   Orientation angles = imu.getRobotOrientation(
 			 AxesReference.EXTRINSIC,
 			 AxesOrder.XYZ,
 			 AngleUnit.DEGREES
 	   );
-	   return myRobotOrientation.thirdAngle;
+
+	   double deltaAngle = angles.thirdAngle - lastAngles.thirdAngle;
+
+	   if (deltaAngle < -180)
+		  deltaAngle += 360;
+	   else if (deltaAngle > 180)
+		  deltaAngle -= 360;
+
+	   globalAngle += deltaAngle;
+
+	   lastAngles = angles;
+
+	   return globalAngle;
     }
 
-//    public double getHeading() {
-//        Orientation orientation;
-//        orientation = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.ZXY, AngleUnit.DEGREES);
-//        double roundedAngle = Math.round(100 * orientation.firstAngle) / 100;
-//        lastAngle = roundedAngle;
-//        return roundedAngle;
-//    }
+    public void resetAngle() {
+	   lastAngles = imu.getRobotOrientation(
+			 AxesReference.EXTRINSIC,
+			 AxesOrder.XYZ,
+			 AngleUnit.DEGREES
+	   );
 
-    public double getIntegratedHeading() {
-	   double currentHeading = currentHeading();
-
-
-//	   double currentHeading = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-	   double deltaHeading = currentHeading - previousHeading;
-
-	   if (deltaHeading < -180) {
-		  deltaHeading += 360;
-	   } else if (deltaHeading >= 180) {
-		  deltaHeading -= 360;
-	   }
-
-	   integratedHeading += deltaHeading;
-	   previousHeading = currentHeading;
-
-	   return integratedHeading;
+	   globalAngle = 0;
     }
+
 }

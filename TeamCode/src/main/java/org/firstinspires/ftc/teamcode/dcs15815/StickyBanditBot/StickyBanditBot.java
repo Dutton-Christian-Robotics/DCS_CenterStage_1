@@ -40,7 +40,7 @@ public class StickyBanditBot extends DefenderBot {
 	   wrist = addSystem(SBBWrist.class);
 	   stickyPad = addSystem(SBBStickyPad.class);
 	   leds = addSystem(SBBEffectsLeds.class);
-//	   droneLauncher = addSystem(SBBDroneLauncher.class);
+	   droneLauncher = addSystem(SBBDroneLauncher.class);
 
 	   armPresets = SBBConfiguration.ARM_PRESETS;
 

@@ -14,7 +14,7 @@ public class FruitportAutonomousFarBlue1OpMode extends PropDetectingOpMode {
     @Override
     public void setupRobot() {
 	   super.setupRobot();
-	   bot.alliance = DefenderBot.Alliance.RED;
+	   bot.alliance = DefenderBot.Alliance.BLUE;
     }
 
     @Override

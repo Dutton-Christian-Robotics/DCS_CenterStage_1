@@ -41,21 +41,16 @@ public class SBBNavigation extends DefenderBotSystem {
 	   conversion = new GeneralMatrixF(3, 3, data);
 	   conversion = conversion.inverted();
 
-	   pidRotate = new DefenderPIDController(.003, .00003, 0);
+//	   pidRotate = new DefenderPIDController(.005, .00006, 0);
+	   pidRotate = new DefenderPIDController(.0025, 0.00003, 0);
 
 
 	   sensors = (SBBSensors) ((StickyBanditBot) bot).sensors;
 
     }
 
-    //    public void linkSensors(SBBSensors s) {
-//	   sensors = s;
-//    }
     public void linkDrivetrain(SBBMecanumDrivetrain dt) {
 	   drivetrain = dt;
-//	   System.out.println("FLAG");
-//	   System.out.println(drivetrain == null ? "null" : "exists");
-//	   System.out.println(drivetrain.getClass().getName());
 
 	   backLeft = drivetrain.backLeft;
 	   frontLeft = drivetrain.frontLeft;
@@ -63,11 +58,6 @@ public class SBBNavigation extends DefenderBotSystem {
 	   backRight = drivetrain.backRight;
 
 	   setEncoderOffsets();
-
-//	   backLeft = ((ProductionBotMecanumDrivetrain) bot.drivetrain).backLeft;
-//	   frontLeft = ((ProductionBotMecanumDrivetrain) bot.drivetrain).frontLeft;
-//	   frontRight = ((ProductionBotMecanumDrivetrain) bot.drivetrain).frontRight;
-//	   backRight = ((ProductionBotMecanumDrivetrain) bot.drivetrain).backRight;
 
     }
 
@@ -165,14 +155,6 @@ public class SBBNavigation extends DefenderBotSystem {
 	   driveToPosition(position.getX(), position.getY(), position.getHeading(), 1);
     }
 
-//    public DefenderBotPosition getCurrentPosition() {
-//	   double[] d = getDistanceInches();
-//	   return new DefenderBotPosition(d[1], d[0], sensors.getIntegratedHeading());
-//    }
-
-//    public void driveToRelativePosition(double dX, double dY) {
-//	   driveToPosition(getCurrentPosition().relativePosition(dX, dY));
-//    }
 
     public void driveToRelativePosition(double dX, double dY, double heading) {
 //	   driveToPosition(getCurrentPosition().relativePosition(dX, dY), heading);
@@ -233,12 +215,10 @@ public class SBBNavigation extends DefenderBotSystem {
 
 	   if (degrees < 0) {
 		  // On right turn we have to get off zero first.
-		  while (bot.opMode.opModeIsActive() && sensors.getAngle() == 0) {
-			 drivetrain.drive(0, 0, power);
-//			 leftMotor.setPower(power);
-//			 rightMotor.setPower(-power);
-			 sleep(100);
-		  }
+//		  while (bot.opMode.opModeIsActive() && sensors.getAngle() == 0) {
+//			 drivetrain.drive(0, 0, power);
+//			 sleep(100);
+//		  }
 
 		  do {
 			 power = pidRotate.performPID(sensors.getAngle()); // power will be - on right turn.

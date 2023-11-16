@@ -17,9 +17,10 @@ import org.firstinspires.ftc.teamcode.dcs15815.DefenderFramework.DefenderBot.Def
 
 public class SBBSensors extends DefenderBotSystem {
 
-//    private BNO055IMU imu;
+    //    private BNO055IMU imu;
     private IMU imu;
-    private double globalAngle;
+    public double globalAngle;
+    public double deltaAngle;
 
     Orientation lastAngles = new Orientation();
 
@@ -38,18 +39,23 @@ public class SBBSensors extends DefenderBotSystem {
 
     }
 
-public double currentHeading() {
+    public double currentHeading() {
 	   return getAngle();
-}
-    public double getAngle()
-    {
+    }
+
+    public double getAngle() {
 	   Orientation angles = imu.getRobotOrientation(
-			 AxesReference.EXTRINSIC,
+			 AxesReference.INTRINSIC,
 			 AxesOrder.XYZ,
 			 AngleUnit.DEGREES
 	   );
 
-	   double deltaAngle = angles.thirdAngle - lastAngles.thirdAngle;
+	   deltaAngle = angles.thirdAngle - lastAngles.thirdAngle;
+
+//	   bot.telemetry.addData("Delta", deltaAngle);
+//	   bot.telemetry.update();
+//	   bot.sleep(2000);
+
 
 	   if (deltaAngle < -180)
 		  deltaAngle += 360;
@@ -65,7 +71,7 @@ public double currentHeading() {
 
     public void resetAngle() {
 	   lastAngles = imu.getRobotOrientation(
-			 AxesReference.EXTRINSIC,
+			 AxesReference.INTRINSIC,
 			 AxesOrder.XYZ,
 			 AngleUnit.DEGREES
 	   );

@@ -16,17 +16,19 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
     private DefenderDebouncer gamepad2DpadUpDebouncer, gamepad2DpadDownDebouncer, gamepad2DpadLeftDebouncer, gamepad2DpadRightDebouncer;
     private DefenderDebouncer gamepad2ADebouncer, gamepad2BDebouncer, gamepad2XDebouncer, gamepad2YDebouncer;
     private DefenderDebouncer gamepad2LeftBumperDebouncer, gamepad2RightBumperDebouncer;
-    private DefenderDebouncer startDebouncer, releaseBothDebouncer;
+    private DefenderDebouncer gamepad2StartDebouncer;
+    private DefenderDebouncer releaseBothDebouncer;
     private DefenderAnalogModifier gamepad2RightStickModifier, gamepad1LeftStickYModifier, gamepad1RightStickXModifier;
 
     private boolean readyToLaunchDrone = false;
-
+	private boolean allowManualLiftControl = false;
     public boolean isReadyToHang = false;
-//    public boolean releaseBoth = true;
 
      @Override
     public void runOpMode() {
 	   bot = new StickyBanditBot(hardwareMap, SBBConfiguration.class, telemetry);
+
+	   // ——— SETUP STICK MODIFIERS —————————————————————————————————
 
 	   gamepad1LeftStickYModifier = new DefenderAnalogModifier(
 			 SBBConfiguration.GAMEPAD1_LEFT_STICK_Y_CURVE,
@@ -42,6 +44,8 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 //			 SBBConfiguration.GAMEPAD2_RIGHT_STICK_MAX
 //	   );
 
+	    // ——— SETUP GAMEPAD 1 DEBOUNCERS —————————————————————————————————
+
 	    gamepad1StartDebouncer = new DefenderDebouncer(500, () -> {
 		   readyToLaunchDrone = !readyToLaunchDrone;
 	    });
@@ -56,19 +60,25 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 		   bot.droneLauncher.gotoHoldPosition();
 	    });
 
+	    // ——— SETUP GAMEPAD 2 DEBOUNCERS —————————————————————————————————
+
+	    releaseBothDebouncer = new DefenderDebouncer(1500, () -> {
+		   bot.stickyPad.releaseBoth();
+	    });
+
+	    gamepad2StartDebouncer = new DefenderDebouncer(500, () -> {
+		   allowManualLiftControl = !allowManualLiftControl;
+	    });
 
 	    gamepad2DpadUpDebouncer = new DefenderDebouncer(500, () -> {
 		  bot.gotoNextArmPosition();
 
-//		  bot.lift.setRelativePosition(SBBConfiguration.LIFT_POSITION_DELTA);
 	   });
 	   gamepad2DpadDownDebouncer = new DefenderDebouncer(500, () -> {
 		  bot.gotoPreviousArmPosition();
-//		  bot.lift.setRelativePosition(-1 * SBBConfiguration.LIFT_POSITION_DELTA);
 	   });
 	   gamepad2DpadLeftDebouncer = new DefenderDebouncer(500, () -> {
 		  bot.stickyPad.gotoGrabPosition();
-//		  bot.tilt.setRelativePosition(-1 * SBBConfiguration.TILT_POSITION_DELTA);
 	   });
 	   gamepad2DpadRightDebouncer = new DefenderDebouncer(500, () -> {
 		  if (!isReadyToHang) {
@@ -78,8 +88,6 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 			 bot.gotoHangingArmPosition();
 			 isReadyToHang = false;
 		  }
-
-//		  bot.tilt.setRelativePosition(SBBConfiguration.TILT_POSITION_DELTA);
 	   });
 	   gamepad2ADebouncer = new DefenderDebouncer(500, () -> {
 		  bot.wrist.setRelativePosition(-1 * SBBConfiguration.WRIST_POSITION_DELTA);
@@ -87,7 +95,6 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 	   });
 	   gamepad2BDebouncer = new DefenderDebouncer(500, () -> {
 		  bot.runGrabPixelsMacro();
-
 	   });
 	   gamepad2XDebouncer = new DefenderDebouncer(500, () -> {
 		  bot.gotoTravelArmPosition();
@@ -97,27 +104,12 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 		  bot.wrist.setRelativePosition(SBBConfiguration.WRIST_POSITION_DELTA);
 	   });
 	   gamepad2LeftBumperDebouncer = new DefenderDebouncer(500, () -> {
-//		  if (releaseBoth) {
-//			 bot.stickyPad.releaseBoth();
-//		  } else {
 			 bot.stickyPad.releaseLeft();
-//		  }
 	   });
 	   gamepad2RightBumperDebouncer = new DefenderDebouncer(500, () -> {
-//		  if (releaseBoth) {
-//			 bot.stickyPad.releaseBoth();
-//		  } else {
 			 bot.stickyPad.releaseRight();
-//		  }
 	   });
 
-	    releaseBothDebouncer = new DefenderDebouncer(1500, () -> {
-		  bot.stickyPad.releaseBoth();
-	    });
-
-//	    startDebouncer = new DefenderDebouncer(500, () -> {
-//		  releaseBoth = !releaseBoth;
-//	    });
 
 
 	    bot.stickyPad.gotoGrabPosition();
@@ -126,15 +118,32 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 
 
 	   while (opModeIsActive()) {
+
+	   // ——— GAMEPAD 1 FUNCTIONS  —————————————————————————————————
+
 		  bot.drivetrain.drive(
 				-1 * gamepad1LeftStickYModifier.modify(gamepad1.left_stick_y),
 				(gamepad1.right_trigger - gamepad1.left_trigger),
 				gamepad1RightStickXModifier.modify(gamepad1.right_stick_x));
 
-		  if (gamepad2.left_stick_y < 0) {
-			 bot.lift.setRelativePosition(SBBConfiguration.LIFT_POSITION_DELTA);
-		  } else if (gamepad2.left_stick_y > 0) {
-			 bot.lift.setRelativePosition(-1 * SBBConfiguration.LIFT_POSITION_DELTA);
+		  if (gamepad1.start) {
+			 gamepad1StartDebouncer.run();
+		  }
+		  if (gamepad1.x) {
+			 gamepad1XDebouncer.run();
+		  }
+		  if (gamepad1.y) {
+			 gamepad1YDebouncer.run();
+		  }
+
+	   // ——— GAMEPAD 2 FUNCTIONS  —————————————————————————————————
+
+		  if (allowManualLiftControl) {
+			 if (gamepad2.left_stick_y < 0) {
+				bot.lift.setRelativePosition(SBBConfiguration.LIFT_POSITION_DELTA);
+			 } else if (gamepad2.left_stick_y > 0) {
+				bot.lift.setRelativePosition(-1 * SBBConfiguration.LIFT_POSITION_DELTA);
+			 }
 		  }
 
 		  if (gamepad2.right_stick_y < 0) {
@@ -156,9 +165,9 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 			 gamepad2DpadDownDebouncer.run();
 		  }
 
-//		  if (gamepad2.start) {
-//			 startDebouncer.run();
-//		  }
+		  if (gamepad2.start) {
+			 gamepad2StartDebouncer.run();
+		  }
 
 		  if (gamepad2.right_trigger > 0) {
 			 releaseBothDebouncer.run();
@@ -183,30 +192,29 @@ public class TwoGamepadDrivingOpMode extends LinearOpMode
 			 gamepad2RightBumperDebouncer.run();
 		  }
 
-		  if (gamepad1.start) {
-			 gamepad1StartDebouncer.run();
-		  }
-		  if (gamepad1.x) {
-			 gamepad1XDebouncer.run();
-		  }
-		  if (gamepad1.y) {
-			 gamepad1YDebouncer.run();
-		  }
-
+	   // ——— TELEMETRY  —————————————————————————————————
 
 		  if (!readyToLaunchDrone) {
 			 telemetry.addData("Drone", "safety on");
 		  } else {
 			 telemetry.addData("Drone", "READY TO LAUNCH!!!!");
 		  }
+		  if (!allowManualLiftControl) {
+			 telemetry.addData("Manual Lift", "disabled");
+		  } else {
+			 telemetry.addData("Manual Lift", "ENABLED");
+		  }
 		  telemetry.addData("Lift", bot.lift.getPosition());
 		  telemetry.addData("Tilt", bot.tilt.getPosition());
-		  telemetry.addData("Wrist L", bot.wrist.leftServo.getPosition());
-		  telemetry.addData("Wrist R", bot.wrist.rightServo.getPosition());
+//		  telemetry.addData("Wrist L", bot.wrist.leftServo.getPosition());
+//		  telemetry.addData("Wrist R", bot.wrist.rightServo.getPosition());
 		  telemetry.addData("Stickypad", bot.stickyPad.getPosition());
 		  telemetry.update();
 
 	   }
-	   bot.gotoStartArmPosition();
+
+	// ——— AFTER OPMODE ENDS —————————————————————————————————
+
+	    bot.gotoStartArmPosition();
     }
 }

@@ -57,6 +57,7 @@ import java.util.Locale;
  * In OnBot Java, use "Add File" to add this OpMode from the list of Samples.
  */
 
+@Disabled
 @TeleOp(name = "Camera Test OpMode", group = "Testing")
 public class CameraTestOpMode extends LinearOpMode
 {

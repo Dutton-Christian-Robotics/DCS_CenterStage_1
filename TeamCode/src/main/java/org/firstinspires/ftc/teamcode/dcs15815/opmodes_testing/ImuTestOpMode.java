@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.SBBConfiguration;
 import org.firstinspires.ftc.teamcode.dcs15815.StickyBanditBot.StickyBanditBot;
 
+@Disabled
 @TeleOp(name = "IMU Test", group = "Testing")
 public class ImuTestOpMode extends LinearOpMode {
     StickyBanditBot bot;

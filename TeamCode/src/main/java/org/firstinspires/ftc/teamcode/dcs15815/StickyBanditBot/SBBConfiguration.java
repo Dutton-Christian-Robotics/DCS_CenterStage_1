@@ -113,11 +113,6 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static double NAVIGATION_ROTATION_KI = 0;
     public static double NAVIGATION_ROTATION_KD = 0;
 
-    // Unused since moving to robot-relative RoadRunner movement instead of absolute
-//    public static Pose2d NAVIGATION_START_RED_LEFT = new Pose2d(-65, 36, 0);
-//    public static Pose2d NAVIGATION_START_RED_RIGHT = new Pose2d(-65, -36, 0);
-//    public static Pose2d NAVIGATION_START_BLUE_LEFT = new Pose2d(65, -36, 0);
-//    public static Pose2d NAVIGATION_START_BLUE_RIGHT = new Pose2d(65, 36, 0);
 
     /* DRONE LAUNCHER -------------------------------------------------------- */
 
@@ -137,6 +132,12 @@ public class SBBConfiguration extends DefenderBotConfiguration {
             SBBConfiguration.LIFT_POSITION_GROUND,
             SBBConfiguration.TILT_POSITION_GROUND,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TRAVEL);
+
+    public static SBBArmPosition TRAVEL_POSITION = new SBBArmPosition(
+            SBBConfiguration.LIFT_POSITION_GROUND,
+            SBBConfiguration.TILT_POSITION_TRAVEL,
+            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TRAVEL);
+
 
 //    public static SBBArmPosition GRAB_READY_POSITION = new SBBArmPosition(
 //            1350,
@@ -158,10 +159,6 @@ public class SBBConfiguration extends DefenderBotConfiguration {
             SBBConfiguration.TILT_POSITION_GROUND,
             SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_BOTTOM);
 
-    public static SBBArmPosition TRAVEL_POSITION = new SBBArmPosition(
-            SBBConfiguration.LIFT_POSITION_GROUND,
-            SBBConfiguration.TILT_POSITION_TRAVEL,
-            SBBConfiguration.WRIST_RIGHT_SERVO_POSITION_TRAVEL);
 
     public static SBBArmPosition LEAVE_STACK_POSITION = new SBBArmPosition(
             SBBConfiguration.LIFT_POSITION_GROUND,
@@ -175,8 +172,13 @@ public class SBBConfiguration extends DefenderBotConfiguration {
 
     public static SBBArmPosition AUTONOMOUS_FRONT_DELIVERY_POSITION = new SBBArmPosition(
             0,
-            406,
-            0.425);
+            350,
+            0.5);
+
+    public static SBBArmPosition AUTONOMOUS_FRONT_DELIVERY_RELEASE_POSITION = new SBBArmPosition(
+            0,
+            350,
+            0.75);
 
 
     public static SBBArmPosition MID_FRONT_DELIVERY_POSITION = new SBBArmPosition(

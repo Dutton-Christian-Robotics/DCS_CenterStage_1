@@ -173,12 +173,12 @@ public class SBBConfiguration extends DefenderBotConfiguration {
     public static SBBArmPosition AUTONOMOUS_FRONT_DELIVERY_POSITION = new SBBArmPosition(
             0,
             350,
-            0.5);
+            0.4);
 
     public static SBBArmPosition AUTONOMOUS_FRONT_DELIVERY_RELEASE_POSITION = new SBBArmPosition(
             0,
             350,
-            0.75);
+            0.6);
 
 
     public static SBBArmPosition MID_FRONT_DELIVERY_POSITION = new SBBArmPosition(

@@ -46,7 +46,7 @@ public class FruitportAutonomousNearBlue1OpMode extends PropDetectingOpMode {
 		  bot.navigation.resetAndDriveToPosition(0, 20, 0, 0.1);
 
 		  // Strafe right slightly for better pixel delivery
-		  bot.navigation.resetAndDriveToPosition(14, 0, 0, 0.4);
+		  bot.navigation.resetAndDriveToPosition(12, 0, 0, 0.4);
 
 		  // Drive forward to the board
 		  bot.navigation.resetAndDriveToPosition(0, 26, 0, 0.1);
@@ -82,9 +82,9 @@ public class FruitportAutonomousNearBlue1OpMode extends PropDetectingOpMode {
 		  // Drive backward away from the purple pixel
 		  bot.navigation.resetAndDriveToPosition(0, -16, 0, 0.1);
 
-		  // Turn 180 CCW in two increments
-		  bot.navigation.comeToRelativeHeading(90, 1, 1, 5000);
-		  bot.navigation.comeToRelativeHeading(90, 1, 1, 5000);
+		  // Turn 180 CW in two increments
+		  bot.navigation.comeToRelativeHeading(-90, 1, 1, 5000);
+		  bot.navigation.comeToRelativeHeading(-90, 1, 1, 5000);
 
 		  // Get arm into delivery position
 		  bot.gotoArmPosition(SBBConfiguration.AUTONOMOUS_FRONT_DELIVERY_POSITION);
@@ -135,7 +135,7 @@ public class FruitportAutonomousNearBlue1OpMode extends PropDetectingOpMode {
 		  bot.gotoArmPosition(SBBConfiguration.AUTONOMOUS_FRONT_DELIVERY_POSITION);
 
 		  // Strafe right slightly for better pixel delivery
-		  bot.navigation.resetAndDriveToPosition(6.5, 0, 0, 0.4);
+		  bot.navigation.resetAndDriveToPosition(5, 0, 0, 0.4);
 
 		  // Drive forward to the board
 		  bot.navigation.resetAndDriveToPosition(0, 20, 0, 0.1);

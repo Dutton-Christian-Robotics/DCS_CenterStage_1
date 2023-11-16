@@ -42,6 +42,9 @@ public class FruitportAutonomousFarBlue1OpMode extends PropDetectingOpMode {
 		  // Get arm into delivery position
 		  bot.gotoTravelArmPosition();
 
+		  // Strafe left slightly for better pixel delivery
+		  bot.navigation.resetAndDriveToPosition(-12, 0, 0, 0.4);
+
 
 		  // Release the yellow pixel
 		  bot.stickyPad.releaseRight();

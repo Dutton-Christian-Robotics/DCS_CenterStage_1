@@ -18,7 +18,7 @@ public class FruitportAutonomousFarBlue1OpMode extends PropDetectingOpMode {
     }
 
     @Override
-    public void whenRedAlliance() {
+    public void whenBlueAlliance() {
 	   if (position == PropVisionProcessor.PropPosition.MIDDLE || position == PropVisionProcessor.PropPosition.NONE) {
 
 		  // Drive backwards away from wall

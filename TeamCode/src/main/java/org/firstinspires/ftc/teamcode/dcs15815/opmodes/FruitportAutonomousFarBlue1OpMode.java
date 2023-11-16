@@ -66,7 +66,7 @@ public class FruitportAutonomousFarBlue1OpMode extends PropDetectingOpMode {
 		  bot.navigation.resetAndDriveToPosition(0, 8, 0, 0.2);
 
 		  // Release the purple pixel
-		  bot.stickyPad.releaseRight();
+		  bot.stickyPad.releaseLeft();
 		  sleep(3000);
 
 		  // Drive backward away from the purple pixel
@@ -80,13 +80,13 @@ public class FruitportAutonomousFarBlue1OpMode extends PropDetectingOpMode {
 		  bot.navigation.resetAndDriveToPosition(0, 104, 0, 0.1);
 
 		  // Strafe left slightly for better pixel delivery
-		  bot.navigation.resetAndDriveToPosition(-11, 0, 0, 0.4);
+		  bot.navigation.resetAndDriveToPosition(-23, 0, 0, 0.4);
 
 		  // Get arm into delivery position
 		  bot.gotoTravelArmPosition();
 
 		  // Release the yellow pixel
-		  bot.stickyPad.releaseLeft();
+		  bot.stickyPad.releaseRight();
 		  sleep(3000);
 
 
@@ -100,7 +100,7 @@ public class FruitportAutonomousFarBlue1OpMode extends PropDetectingOpMode {
 	   } else if (position == PropVisionProcessor.PropPosition.RIGHT) {
 
 		  // Drive backwards away from wall
-		  bot.navigation.resetAndDriveToPosition(0, -29, 0, 0.1);
+		  bot.navigation.resetAndDriveToPosition(0, -31, 0, 0.1);
 
 		  // Turn 90 CW
 		  bot.navigation.comeToRelativeHeading(-90, 1, 1, 5000);
@@ -116,19 +116,19 @@ public class FruitportAutonomousFarBlue1OpMode extends PropDetectingOpMode {
 		  bot.navigation.resetAndDriveToPosition(0, -8, 0, 0.2);
 
 		  // Strafe to the right for crossfield transit
-		  bot.navigation.resetAndDriveToPosition(35, 0, 0, 0.3);
+		  bot.navigation.resetAndDriveToPosition(22, 0, 0, 0.3);
 
 		  // Drive forward under the stage door to the backstage
-		  bot.navigation.resetAndDriveToPosition(0, 110, 0, 0.1);
+		  bot.navigation.resetAndDriveToPosition(0, 115, 0, 0.1);
 
 		  // Get arm into delivery position
 		  bot.gotoTravelArmPosition();
 
 		  // Strafe left slightly for better pixel delivery
-		  // bot.navigation.resetAndDriveToPosition(11, 0, 0, 0.4);
+		   bot.navigation.resetAndDriveToPosition(-15, 0, 0, 0.4);
 
 		  // Release the yellow pixel
-		  bot.stickyPad.releaseLeft();
+		  bot.stickyPad.releaseRight();
 		  sleep(3000);
 
 

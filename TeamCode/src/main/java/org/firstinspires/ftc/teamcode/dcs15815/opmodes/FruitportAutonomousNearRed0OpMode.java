@@ -18,11 +18,13 @@ public class FruitportAutonomousNearRed0OpMode extends PropDetectingOpMode {
 
     @Override
     public void whenRedAlliance() {
-	   bot.navigation.comeToRelativeHeading(90, 0.5, 1, 5000);
-	   bot.navigation.resetAndDriveToPosition(0, 37, 0, 0.1);
+	   bot.navigation.resetAndDriveToPosition(0, -10, 0, 0.3);
+	   bot.gotoTravelArmPosition();
+	   bot.navigation.comeToRelativeHeading(90, 1, 1, 5000);
+	   bot.navigation.resetAndDriveToPosition(0, 39, 0, 0.1);
 	   bot.stickyPad.releaseBoth();
 	   sleep(3000);
-//	   bot.navigation.resetAndDriveToPosition(0, -6, 0, 0.4);
+	   bot.navigation.resetAndDriveToPosition(0, -6, 0, 0.4);
 	   bot.gotoStartArmPosition();
 
     }

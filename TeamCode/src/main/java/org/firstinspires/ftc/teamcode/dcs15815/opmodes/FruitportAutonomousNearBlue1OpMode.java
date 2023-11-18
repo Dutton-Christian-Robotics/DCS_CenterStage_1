@@ -32,6 +32,8 @@ public class FruitportAutonomousNearBlue1OpMode extends PropDetectingOpMode {
 		  // Release the purple pixel
 		  bot.stickyPad.releaseLeft();
 		  sleep(3000);
+		  bot.gotoArmPosition(SBBConfiguration.LEAVE_STACK_POSITION);
+		  sleep(2500);
 
 		  // Drive backwards from the purple pixel
 		  bot.navigation.resetAndDriveToPosition(0, -11, 0, 0.2);
@@ -46,10 +48,10 @@ public class FruitportAutonomousNearBlue1OpMode extends PropDetectingOpMode {
 		  bot.navigation.resetAndDriveToPosition(0, 20, 0, 0.1);
 
 		  // Strafe right slightly for better pixel delivery
-		  bot.navigation.resetAndDriveToPosition(12, 0, 0, 0.4);
+		  bot.navigation.resetAndDriveToPosition(15, 0, 0, 0.4);
 
 		  // Drive forward to the board
-		  bot.navigation.resetAndDriveToPosition(0, 26, 0, 0.1);
+		  bot.navigation.resetAndDriveToPosition(0, 28, 0, 0.1);
 
 		  // Release the yellow pixel and tilt wrist up
 		  bot.stickyPad.releaseRight();
@@ -78,6 +80,9 @@ public class FruitportAutonomousNearBlue1OpMode extends PropDetectingOpMode {
 		  // Release the purple pixel
 		  bot.stickyPad.releaseLeft();
 		  sleep(3000);
+		  bot.gotoArmPosition(SBBConfiguration.LEAVE_STACK_POSITION);
+		  sleep(2500);
+
 
 		  // Drive backward away from the purple pixel
 		  bot.navigation.resetAndDriveToPosition(0, -16, 0, 0.1);
@@ -123,6 +128,9 @@ public class FruitportAutonomousNearBlue1OpMode extends PropDetectingOpMode {
 		  // Release the purple pixel
 		  bot.stickyPad.releaseLeft();
 		  sleep(3000);
+		  bot.gotoArmPosition(SBBConfiguration.LEAVE_STACK_POSITION);
+		  sleep(2500);
+
 
 		  // Drive backward away from the purple pixel
 		  bot.navigation.resetAndDriveToPosition(0, -30, 0, 0.1);

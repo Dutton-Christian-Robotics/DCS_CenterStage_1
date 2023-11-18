@@ -50,7 +50,7 @@ public class StickyBanditBot extends DefenderBot {
 			 gotoGrabContactArmPosition();
 		  },
 		  () -> {
-			 gotoLeaveStackArmPosition();
+			 gotoArmPosition(SBBConfiguration.AFTER_GRAB_POSITION);
 		  },
 		  1000
 	   );

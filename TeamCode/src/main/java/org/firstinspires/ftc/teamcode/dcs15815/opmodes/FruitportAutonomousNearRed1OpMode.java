@@ -32,6 +32,8 @@ public class FruitportAutonomousNearRed1OpMode extends PropDetectingOpMode {
 		  // Release the purple pixel
 		  bot.stickyPad.releaseRight();
 		  sleep(3000);
+		  bot.gotoArmPosition(SBBConfiguration.LEAVE_STACK_POSITION);
+		  sleep(2500);
 
 		  // Drive backwards from the purple pixel
 		  bot.navigation.resetAndDriveToPosition(0, -11, 0, 0.2);
@@ -77,6 +79,8 @@ public class FruitportAutonomousNearRed1OpMode extends PropDetectingOpMode {
 		  // Release the purple pixel
 		  bot.stickyPad.releaseRight();
 		  sleep(3000);
+		  bot.gotoArmPosition(SBBConfiguration.LEAVE_STACK_POSITION);
+		  sleep(2500);
 
 		  // Drive backward away from the purple pixel
 		  bot.navigation.resetAndDriveToPosition(0, -30, 0, 0.1);
@@ -89,10 +93,10 @@ public class FruitportAutonomousNearRed1OpMode extends PropDetectingOpMode {
 		  bot.gotoArmPosition(SBBConfiguration.AUTONOMOUS_FRONT_DELIVERY_POSITION);
 
 		  // Strafe left slightly for better pixel delivery
-		  bot.navigation.resetAndDriveToPosition(-6.5, 0, 0, 0.4);
+		  bot.navigation.resetAndDriveToPosition(-7.5, 0, 0, 0.4);
 
 		  // Drive forward to the board
-		  bot.navigation.resetAndDriveToPosition(0, 20, 0, 0.1);
+		  bot.navigation.resetAndDriveToPosition(0, 25, 0, 0.1);
 
 		  // Release the yellow pixel and tilt wrist up
 		  bot.stickyPad.releaseLeft();
@@ -101,10 +105,10 @@ public class FruitportAutonomousNearRed1OpMode extends PropDetectingOpMode {
 
 
 		  // Back away from the board
-		  bot.navigation.resetAndDriveToPosition(0, -10, 0, 0.2);
+		  bot.navigation.resetAndDriveToPosition(0, -10, 0, 0.4);
 
 		  // Strafe right to get out of the way and reset the arm
-		  bot.navigation.resetAndDriveToPosition(32, 0, 0,  0.4);
+		  bot.navigation.resetAndDriveToPosition(34, 0, 0,  0.4);
 		  bot.gotoStartArmPosition();
 
 
@@ -123,6 +127,8 @@ public class FruitportAutonomousNearRed1OpMode extends PropDetectingOpMode {
 		  // Release the purple pixel
 		  bot.stickyPad.releaseRight();
 		  sleep(3000);
+		  bot.gotoArmPosition(SBBConfiguration.LEAVE_STACK_POSITION);
+		  sleep(2500);
 
 		  // Drive backward away from the purple pixel
 		  bot.navigation.resetAndDriveToPosition(0, -16, 0, 0.1);
